@@ -49,8 +49,9 @@ public class MainMenuScreen extends BaseScreen {
         oceanSurf.setVolume(.5f);
         oceanSurf.play();
 
+        uiTable.row().expandY();
         uiTable.add(title).colspan(2);
-        uiTable.row();
+        uiTable.row().expandY();
         uiTable.add(startButton);
         uiTable.add(quitButton);
     }
