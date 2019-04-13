@@ -344,7 +344,6 @@ public class BaseActor extends Group {
      */
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
         Color c = getColor();
         batch.setColor(c.r, c.g, c.b, c.a);
 
