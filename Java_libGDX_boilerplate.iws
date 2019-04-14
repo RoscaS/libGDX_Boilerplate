@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3341fc40-20f6-4600-a6d1-dc40cf435d42" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/src/com/framework/TilemapActor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java_libGDX_boilerplate.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Java_libGDX_boilerplate.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/framework/BaseActor.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/framework/BaseActor.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -79,8 +77,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseActor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1207">
-              <caret line="362" lean-forward="true" selection-start-line="362" selection-end-line="362" />
+            <state relative-caret-position="528">
+              <caret line="38" column="16" lean-forward="true" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -143,8 +141,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/core/src/com/mygame/screens/MainMenuScreen.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/core/src/com/framework/BaseActor.java" />
         <option value="$PROJECT_DIR$/core/src/com/framework/TiledMapActor.java" />
+        <option value="$PROJECT_DIR$/core/src/com/framework/BaseActor.java" />
       </list>
     </option>
   </component>
@@ -161,7 +159,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="-24" />
-    <option name="width" value="2856" />
+    <option name="width" value="2475" />
     <option name="height" value="2154" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -376,15 +374,15 @@
       <updated>1555187252812</updated>
       <workItem from="1555187253964" duration="72000" />
       <workItem from="1555187357838" duration="1373000" />
-      <workItem from="1555188745971" duration="4175000" />
+      <workItem from="1555188745971" duration="5192000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5620000" />
+    <option name="totallyTimeSpent" value="6637000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-24" width="2856" height="2154" extended-state="0" />
+    <frame x="0" y="-24" width="2475" height="2154" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
@@ -404,7 +402,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.11534702" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.11534702" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Build" order="12" weight="0.32991204" />
       <window_info anchor="right" id="Gradle" order="0" />
@@ -417,7 +415,7 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Database" order="9" />
-      <window_info active="true" anchor="right" content_ui="combo" id="Project" order="10" sideWeight="0.49964514" visible="true" weight="0.15357643" />
+      <window_info anchor="right" content_ui="combo" id="Project" order="10" sideWeight="0.49964514" visible="true" weight="0.14245245" />
       <window_info anchor="right" id="Coverage" order="11" sideWeight="0.5003549" side_tool="true" weight="0.25" />
     </layout>
   </component>
@@ -504,8 +502,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseActor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="362" lean-forward="true" selection-start-line="362" selection-end-line="362" />
+        <state relative-caret-position="528">
+          <caret line="38" column="16" lean-forward="true" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
         </state>
       </provider>
     </entry>
