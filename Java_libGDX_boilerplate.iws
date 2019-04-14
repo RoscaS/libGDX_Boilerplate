@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3341fc40-20f6-4600-a6d1-dc40cf435d42" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygame/screens/LevelScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/framework/draganddrop/DragAndDropActor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/framework/draganddrop/DropTargetActor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Java_libGDX_boilerplate.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Java_libGDX_boilerplate.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygame/MyGame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -85,6 +85,9 @@
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="1280">
                       <caret line="446" column="71" selection-start-line="446" selection-start-column="71" selection-end-line="446" selection-end-column="71" />
+                      <folding>
+                        <element signature="e#14528#14543#0" expanded="true" />
+                      </folding>
                     </state>
                   </provider>
                 </entry>
@@ -104,18 +107,32 @@
             </leaf>
           </split-first>
           <split-second>
-            <leaf>
+            <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
               <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseGame.java">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="616">
-                      <caret line="41" column="7" lean-forward="true" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+                      <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/core/src/com/mygame/screens/LevelScreen.java">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="506">
+                      <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/core/src/com/mygame/screens/LevelScreen.java">
+                <entry file="file://$PROJECT_DIR$/core/src/com/framework/draganddrop/DragAndDropActor.java">
+                  <provider selected="true" editor-type-id="text-editor" />
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/core/src/com/framework/draganddrop/DropTargetActor.java">
                   <provider selected="true" editor-type-id="text-editor" />
                 </entry>
               </file>
@@ -124,12 +141,12 @@
         </splitter>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseScreen.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="506">
-                  <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+                <state relative-caret-position="572">
+                  <caret line="35" selection-start-line="35" selection-end-line="35" />
                 </state>
               </provider>
             </entry>
@@ -137,8 +154,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/src/com/mygame/MyGame.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="264">
-                  <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+                <state relative-caret-position="308">
+                  <caret line="14" selection-start-line="14" selection-end-line="14" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -179,6 +196,7 @@
         <option value="$PROJECT_DIR$/core/src/com/framework/BaseActor.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygame/screens/LevelScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygame/MyGame.java" />
+        <option value="$PROJECT_DIR$/core/src/com/framework/draganddrop/DropTargetActor.java" />
       </list>
     </option>
   </component>
@@ -212,23 +230,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Java_libGDX_boilerplate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Java_libGDX_boilerplate" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="Java_libGDX_boilerplate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Java_libGDX_boilerplate" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -253,6 +254,14 @@
               <item name="Java_libGDX_boilerplate.core.main" type="616d4139:PackageViewModuleNode" />
               <item name="com" type="1f31426a:PackageElementNode" />
               <item name="framework" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="Java_libGDX_boilerplate" type="58d84e3e:PackageViewProjectNode" />
+              <item name="Java_libGDX_boilerplate" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="Java_libGDX_boilerplate.core.main" type="616d4139:PackageViewModuleNode" />
+              <item name="com" type="1f31426a:PackageElementNode" />
+              <item name="framework" type="1f31426a:PackageElementNode" />
+              <item name="draganddrop" type="1f31426a:PackageElementNode" />
             </path>
             <path>
               <item name="Java_libGDX_boilerplate" type="58d84e3e:PackageViewProjectNode" />
@@ -316,6 +325,23 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Java_libGDX_boilerplate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Java_libGDX_boilerplate" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Java_libGDX_boilerplate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Java_libGDX_boilerplate" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -328,7 +354,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Java_libGDX_tutorials/LibGDXFromBegginnerToPro/ch12_Adventure-Game/Adventure-Game/Java_libGDX_boilerplate.ipr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/core/src/com/framework" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -340,6 +366,9 @@
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.mygame.screens" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/core/src/com/framework" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -431,12 +460,14 @@
       <workItem from="1555187253964" duration="72000" />
       <workItem from="1555187357838" duration="1373000" />
       <workItem from="1555188745971" duration="5848000" />
-      <workItem from="1555237690804" duration="1704000" />
+      <workItem from="1555237690804" duration="1736000" />
+      <workItem from="1555255914562" duration="13000" />
+      <workItem from="1555257151382" duration="15000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8997000" />
+    <option name="totallyTimeSpent" value="9057000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-24" width="3840" height="2154" extended-state="0" />
@@ -458,7 +489,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.11512195" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.11485826" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Build" order="12" weight="0.32991204" />
       <window_info anchor="bottom" id="Messages" order="13" />
@@ -472,7 +503,7 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Database" order="9" />
-      <window_info active="true" anchor="right" content_ui="combo" id="Project" order="10" sideWeight="0.49964514" visible="true" weight="0.09176225" />
+      <window_info active="true" anchor="right" content_ui="combo" id="Project" order="10" sideWeight="0.49964514" visible="true" weight="0.1767466" />
       <window_info anchor="right" id="Coverage" order="11" sideWeight="0.5003549" side_tool="true" weight="0.25" />
     </layout>
   </component>
@@ -516,30 +547,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/framework/TilemapActor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseActor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1280">
-          <caret line="446" column="71" selection-start-line="446" selection-start-column="71" selection-end-line="446" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="41" column="7" lean-forward="true" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygame/screens/MainMenuScreen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -550,25 +557,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygame/screens/LevelScreen.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseScreen.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseActor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="1280">
+          <caret line="446" column="71" selection-start-line="446" selection-start-column="71" selection-end-line="446" selection-end-column="71" />
+          <folding>
+            <element signature="e#14528#14543#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygame/MyGame.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/framework/TilemapActor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+        <state relative-caret-position="682">
+          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/framework/BaseScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygame/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygame/screens/LevelScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/framework/draganddrop/DropTargetActor.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/framework/draganddrop/DragAndDropActor.java">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="gradleExecuteTaskHistory">
