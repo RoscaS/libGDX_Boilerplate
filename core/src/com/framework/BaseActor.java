@@ -77,6 +77,14 @@ public class BaseActor extends Group {
    	\*------------------------------*/
 
     /**
+     * Return simple class name of this Actor.
+     * @return simple class name
+     */
+    public String className() {
+   	    return this.getClass().getCanonicalName();
+       }
+
+    /**
      * Get world dimensions
      *
      * @return Rectangle whose width/height represent world bounds
