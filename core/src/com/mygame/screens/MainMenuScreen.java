@@ -21,9 +21,9 @@ public class MainMenuScreen extends BaseScreen {
 	\*------------------------------------------------------------------*/
 
     public void initialize() {
-        BaseActor ocean = new BaseActor(0, 0, mainStage);
-        ocean.loadTexture("space.png");
-        ocean.setSize(800, 600);
+        BaseActor space = new BaseActor(0, 0, mainStage);
+        space.loadTexture("space.png");
+        space.setSize(800, 600);
 
         BaseActor title = new BaseActor(0, 0, mainStage);
         title.loadTexture("main-title.png");
