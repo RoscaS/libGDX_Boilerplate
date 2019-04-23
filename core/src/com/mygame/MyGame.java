@@ -8,7 +8,7 @@ public class MyGame extends BaseGame {
 
 	public void create() {
 		super.create();
-	    setActiveScreen(new MainMenuScreen());
-	    // setActiveScreen(new LevelScreen());
+	    // setActiveScreen(new MainMenuScreen());
+	    setActiveScreen(new LevelScreen());
     }
 }

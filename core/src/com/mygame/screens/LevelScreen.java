@@ -1,26 +1,50 @@
 package com.mygame.screens;
 
-import box2dLight.RayHandler;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.framework.BaseScreen;
+import com.modular.Static.Store;
+import com.modular.Static.World;
+import com.modular.base.CoreEntity;
+import com.modular.base.TilemapEntities;
+import com.mygame.actors.Soldier;
+import com.mygame.actors.Solid;
+import com.mygame.actors.Torch;
 
 public class LevelScreen extends BaseScreen {
 
-    public static final World WORLD = new World(new Vector2(0, -9.8f), true);
-    public static final RayHandler HANDLER = new RayHandler(WORLD);
+    private OrthographicCamera mapCamera;
+    private TilemapEntities tme;
 
 	/*------------------------------------------------------------------*\
-	|*							Initialize  							*|
+	|*							Initialize  						  *|
 	\*------------------------------------------------------------------*/
 
     public void initialize() {
 
-        HANDLER.setBlurNum(6);
+        World.initialize();
+        mapCamera = new OrthographicCamera();
+        tme = new TilemapEntities("tests/map.tmx", mainStage, mapCamera);
+
+        // World.setTopdownWorld(tme, 1, 1);
+
+        new Soldier(100, 300, mainStage);
+        new Torch(50, 300, mainStage);
 
 
+        for (MapObject obj : tme.getRectangleList("Solid")) {
+            MapProperties props = obj.getProperties();
+            new Solid(
+                    (float) props.get("x"), (float) props.get("y"),
+                    (float) props.get("width"), (float) props.get("height"), mainStage
+            );
+        }
+
+        mouseListner();
     }
 
     /*------------------------------------------------------------------*\
@@ -31,8 +55,7 @@ public class LevelScreen extends BaseScreen {
     public void render(float dt) {
         super.render(dt);
 
-        WORLD.step(1 / 60f, 6, 2);
-        handlerRender();
+        World.world.step(1 / 60f, 6, 2);
     }
 
     @Override
@@ -42,23 +65,43 @@ public class LevelScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-        HANDLER.dispose();
     }
 
     /*------------------------------------------------------------------*\
-   	|*							Public Methods 							*|
+   	|*							Public Methods 						  *|
    	\*------------------------------------------------------------------*/
 
 
     /*------------------------------------------------------------------*\
-   	|*							Private methodes 						*|
+   	|*							Private methodes 					  *|
    	\*------------------------------------------------------------------*/
 
-       private void handlerRender() {
-           Camera camera = mainStage.getCamera();
-           Matrix4 matrix = mainStage.getCamera().combined;
-           matrix.scl(100);
-           HANDLER.setCombinedMatrix(matrix, 0, 0, camera.viewportWidth, camera.viewportHeight);
-           HANDLER.updateAndRender();
-       }
+    private void mouseListner() {
+        mainStage.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                // lastClick = new Vector3(
+                //         (float) (Math.round(x * 100.0) / 100.0),
+                //         (float) (Math.round(y * 100.0) / 100.0),
+                //         button
+                // );
+
+                // clear selected array (click on empty spot)
+                if (mainStage.hit(x, y, true) == null && button == Input.Buttons.LEFT) {
+                    Store.selected.clear();
+                }
+                // move selected movables to right click position
+                if (button == Input.Buttons.RIGHT && !Store.selected.isEmpty()) {
+                    for (CoreEntity i : Store.selected) {
+                        // CoreEntity source = (CoreEntity) i;
+                        // source.setDestination(x, y);
+                    }
+                }
+
+                System.out.println(Store.selected);
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+    }
+
 }
