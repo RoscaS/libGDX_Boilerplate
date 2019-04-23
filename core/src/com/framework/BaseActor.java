@@ -173,11 +173,11 @@ public class BaseActor extends Group {
     }
 
     /**
-     * Get the angle of motion (in degrees), calculated from the velocity vector.
-     * To align actor image angle with motion angle,
+     * Get the angle of motion_c (in degrees), calculated from the velocity vector.
+     * To align actor image angle with motion_c angle,
      * use <code>setRotation( getMotionAngle() )</code>.
      *
-     * @return angle of motion (degrees)
+     * @return angle of motion_c (degrees)
      */
     public float getMotionAngle() {
         return velocityVec.angle();
@@ -211,10 +211,10 @@ public class BaseActor extends Group {
 
 
     /**
-     * Sets the angle of motion (in degrees).
+     * Sets the angle of motion_c (in degrees).
      * If current speed is zero, this will have no effect.
      *
-     * @param angle of motion (degrees)
+     * @param angle of motion_c (degrees)
      */
     public void setMotionAngle(float angle) {
         velocityVec.setAngle(angle);
@@ -227,7 +227,7 @@ public class BaseActor extends Group {
      * @param speed of movement (pixels/second)
      */
     public void setSpeed(float speed) {
-        // if length is 0, assume motion angle is zero deg
+        // if length is 0, assume motion_c angle is zero deg
         if (velocityVec.len() == 0) {
             velocityVec.set(speed, 0);
         } else {
@@ -470,7 +470,7 @@ public class BaseActor extends Group {
     }
 
     /**
-     * Convenience method for creating a 1-frame animation from a single texture.
+     * Convenience method for creating a 1-frame animation from a single texture_c.
      *
      * @param fileName names of image file
      * @return animation created (useful for storing multiple animations)

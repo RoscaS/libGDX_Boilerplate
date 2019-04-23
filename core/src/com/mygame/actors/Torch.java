@@ -2,7 +2,9 @@ package com.mygame.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.modular.base.CoreEntity;
+import com.modular.components.MotionComponent;
 import com.modular.components.ParticlesComponent;
+import com.modular.components.TextureComponent;
 
 public class Torch extends CoreEntity {
 
@@ -14,11 +16,15 @@ public class Torch extends CoreEntity {
         super(x, y, s);
         setSize(32, 32);
 
-        particles = new ParticlesComponent(this, "explosion.pfx");
+        motion_c = new MotionComponent(this);
+        texture_c = new TextureComponent(this);
+        particles_c = new ParticlesComponent(this, "explosion.pfx");
+
 
         setShapeRectangle();
 
-        particles.setInfinite();
-        particles.start();
+        // motion_c.setMaxSpeed(1.5f);
+        particles_c.setInfinite();
+        particles_c.start();
     }
 }

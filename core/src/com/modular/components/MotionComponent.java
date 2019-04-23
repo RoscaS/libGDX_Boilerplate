@@ -62,6 +62,10 @@ public class MotionComponent {
 	|*							Public Methods 						  *|
 	\*------------------------------------------------------------------*/
 
+    public boolean isMoving() {
+        return getSpeed() > 0;
+    }
+
     /*------------------------------*\
    	|*				Angles		   *|
    	\*------------------------------*/
@@ -160,6 +164,26 @@ public class MotionComponent {
     }
 
     /*------------------------------*\
+   	|*			  Acceleration      *|
+   	\*------------------------------*/
+
+    public Float getAcceleration() {
+        return acceleration;
+    }
+
+    public Float getDeceleration() {
+        return deceleration;
+    }
+
+    public void setAcceleration(Float acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void setDeceleration(Float deceleration) {
+        this.deceleration = deceleration;
+    }
+
+    /*------------------------------*\
    	|*			  Velocity         *|
    	\*------------------------------*/
 
@@ -248,7 +272,11 @@ public class MotionComponent {
      * @param dt
      */
     public void decelerate(float dt) {
-        setVelocity(getVelocity().setLength(getSpeed() - dt * deceleration));
+        // System.out.println(getVelocity());
+        // System.out.println(getSpeed());
+        System.out.println(dt * deceleration);
+        // setVelocity(getVelocity().setLength(getSpeed() - dt * deceleration));
+        setVelocity(getVelocity().setLength(getVelocity().len() - dt));
 
         if (getSpeed() < .5f && entity.getTextureComponent().isAnimationFinished()) {
             setSpeed(0);

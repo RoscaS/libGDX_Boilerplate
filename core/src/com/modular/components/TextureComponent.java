@@ -13,9 +13,16 @@ public class TextureComponent {
 
     protected CoreEntity entity;
 
-    protected boolean paused;
+    protected boolean animationPaused;
     protected Animation<TextureRegion> animation;
 
+    // Animation
+    private Animation north;
+    private Animation south;
+    private Animation east;
+    private Animation west;
+
+    private String direction;
 
     /*------------------------------------------------------------------*\
    	|*							Constructors						  *|
@@ -24,7 +31,6 @@ public class TextureComponent {
     public TextureComponent(CoreEntity entity) {
         this.entity = entity;
         animation = null;
-        paused = false;
     }
 
     /*------------------------------------------------------------------*\
@@ -44,9 +50,66 @@ public class TextureComponent {
         }
     }
 
+    public void act(float dt) {
+        animationUpdate(dt);
+    }
+
+    /*------------------------------------------------------------------*\
+   	|*							Update                                  *|
+   	\*------------------------------------------------------------------*/
+
+    private void animationUpdate(float dt) {
+        if (entity.getMouseComponent().destination == null) {
+            animationPaused = true;
+        } else {
+            animationPaused = false;
+            float angle = entity.getMotionComponent().getVelocity().angle();
+
+            if (angle >= 45 && angle <= 135) {
+                direction = "North";
+                setAnimation(north);
+            } else if (angle > 135 && angle < 225) {
+                setAnimation(west);
+                direction = "West";
+            } else if (angle >= 225 && angle <= 315) {
+                setAnimation(south);
+                direction = "South";
+            } else {
+                setAnimation(east);
+                direction = "East";
+            }
+        }
+    }
+
     /*------------------------------------------------------------------*\
 	|*							Public Methods 						  *|
 	\*------------------------------------------------------------------*/
+
+    public void loadAnimationsFromSheet(String fileName, int rows, int cols, float frameDuration) {
+        Texture texture = new Texture(Gdx.files.internal(fileName), true);
+
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        int frameWidth = texture.getWidth() / cols;
+        int frameHeight = texture.getHeight() / rows;
+
+        TextureRegion[][] temp = TextureRegion.split(texture, frameWidth, frameHeight);
+        Array<TextureRegion> textureArray = new Array<>();
+        Array<Animation<TextureRegion>> animations = new Array<>();
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                textureArray.add(temp[row][col]);
+            }
+            animations.add(new Animation(frameDuration, textureArray, Animation.PlayMode.LOOP_PINGPONG));
+            textureArray.clear();
+        }
+
+        south = animations.get(0);
+        west = animations.get(1);
+        east = animations.get(2);
+        north = animations.get(3);
+        setAnimation(south);
+    }
 
     /**
      * Sets the animation used when rendering this actor; also sets actor size.
@@ -125,7 +188,7 @@ public class TextureComponent {
     }
 
     /**
-     * Convenience method for creating a 1-frame animation from a single texture.
+     * Convenience method for creating a 1-frame animation from a single texture_c.
      * @param fileName names of image file
      * @return animation created (useful for storing multiple animations)
      */
@@ -143,20 +206,8 @@ public class TextureComponent {
         return animation;
     }
 
-    /*------------------------------*\
-   	|*				Setters		   *|
-   	\*------------------------------*/
-
-    public void setPaused(boolean paused) {
-        this.paused = paused;
-    }
-
-    /*------------------------------*\
-  	|*			  Query		       *|
-  	\*------------------------------*/
-
-    public boolean isPaused() {
-        return paused;
+    public boolean isAnimationPaused() {
+        return animationPaused;
     }
 
     /**
@@ -166,5 +217,13 @@ public class TextureComponent {
     public boolean isAnimationFinished() {
         return animation.isAnimationFinished(entity.getElapsedTime());
     }
+    /*------------------------------*\
+   	|*				Setters		   *|
+   	\*------------------------------*/
+
+    public void setAnimationPaused(boolean paused) {
+        this.animationPaused = paused;
+    }
+
 
 }

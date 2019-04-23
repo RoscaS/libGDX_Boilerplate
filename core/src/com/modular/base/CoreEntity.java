@@ -10,14 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.modular.Static.World;
-import com.modular.components.MotionComponent;
-import com.modular.components.ParticlesComponent;
-import com.modular.components.SelectionComponent;
-import com.modular.components.TextureComponent;
+import com.modular.components.*;
 
 import java.util.ArrayList;
 
-public abstract class CoreEntity extends Group {
+public class CoreEntity extends Group {
 
     // Core attributes
     protected Body body;
@@ -26,17 +23,16 @@ public abstract class CoreEntity extends Group {
 
 
     // Components
-    protected MotionComponent motion;
-    protected TextureComponent texture;
-    protected ParticlesComponent particles;
-    protected SelectionComponent selection;
-
-    // protected Selection selectionComponent;
-    // protected Animation animationComponent;
+    protected MotionComponent motion_c;
+    protected MouseComponent mouse_c;
+    protected TextureComponent texture_c;
+    protected ParticlesComponent particles_c;
 
 
     // State
     protected float elapsedTime;
+
+
 
     /*------------------------------------------------------------------*\
 	|*							Constructors						  *|
@@ -52,17 +48,13 @@ public abstract class CoreEntity extends Group {
         fixtureDef = new FixtureDef();
 
         // Components
-        // texture = new TextureComponent(this);
-        // motion = new MotionComponent(this);
-        texture = null;
-        motion = null;
-        particles = null;
-        selection = null;
-
+        motion_c = null;
+        mouse_c = null;
+        texture_c = null;
+        particles_c = null;
 
         // State
         elapsedTime = 0;
-
     }
 
     /**
@@ -101,7 +93,9 @@ public abstract class CoreEntity extends Group {
         // position must be centred
         setOriginCenter();
         PolygonShape rect = new PolygonShape();
-        rect.setAsBox(getWidth() / (com.modular.Static.World.SCALE * 2), getHeight() / (com.modular.Static.World.SCALE * 2));
+        float w = getWidth() / (World.SCALE * 2);
+        float h = getHeight() / (World.SCALE * 2);
+        rect.setAsBox(w, h);
         fixtureDef.shape = rect;
     }
 
@@ -151,18 +145,22 @@ public abstract class CoreEntity extends Group {
     public void act(float dt) {
         super.act(dt);
 
-        if (texture != null && texture.isPaused()) return;
+        if (texture_c.isAnimationPaused() && !motion_c.isMoving()) return;
         elapsedTime += dt;
 
-        if (motion != null) motion.act(dt);
-        if (particles != null) particles.act(dt);
+        // if (texture_c != null && texture_c.isAnimationPaused()) return;
 
+
+        if (motion_c != null) motion_c.act(dt);
+        if (texture_c != null) texture_c.act(dt);
+        if (particles_c != null) particles_c.act(dt);
+        if (mouse_c != null) mouse_c.act(dt);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if (texture != null) texture.draw(batch, parentAlpha);
+        if (texture_c != null) texture_c.draw(batch, parentAlpha);
 
         super.draw(batch, parentAlpha);
     }
@@ -189,32 +187,40 @@ public abstract class CoreEntity extends Group {
   	\*------------------------------*/
 
     public MotionComponent getMotionComponent() {
-        return motion;
+        return motion_c;
     }
 
     public TextureComponent getTextureComponent() {
-        return texture;
+        return texture_c;
     }
 
-    public ParticlesComponent getParticles() {
-        return particles;
+    public ParticlesComponent getParticlesComponent() {
+        return particles_c;
     }
 
-    public SelectionComponent getSelection() {
-        return selection;
+    public MouseComponent getMouseComponent() {
+        return mouse_c;
     }
 
     /*------------------------------*\
   	|*		 Components Setters	   *|
   	\*------------------------------*/
 
-    // public void setMotion(MotionComponent component) {
-    //     motion = component;
-    // }
-    //
-    // public void setTexture(TextureComponent texture) {
-    //     this.texture = texture;
-    // }
+    public void setMotionComponent(MotionComponent motion) {
+        this.motion_c = motion;
+    }
+
+    public void setTextureComponent(TextureComponent texture) {
+        this.texture_c = texture;
+    }
+
+    public void setParticlesComponent(ParticlesComponent particles) {
+        this.particles_c = particles;
+    }
+
+    public void setMouseComponent(MouseComponent selection) {
+        this.mouse_c = selection;
+    }
 
     /*------------------------------*\
   	|*			Getters		       *|
@@ -227,18 +233,6 @@ public abstract class CoreEntity extends Group {
     public float getElapsedTime() {
         return elapsedTime;
     }
-
-    /*------------------------------*\
-  	|*			Setters		       *|
-  	\*------------------------------*/
-
-    /*------------------------------*\
-  	|*			  Query		       *|
-  	\*------------------------------*/
-
-    /*------------------------------*\
-  	|*			  Toggle	       *|
-  	\*------------------------------*/
 
     /*------------------------------*\
   	|*			  Tools  		   *|
@@ -259,12 +253,12 @@ public abstract class CoreEntity extends Group {
      * @param distance how far ahead of this actor (metters)
      */
     public void putAhead(CoreEntity other, float distance) {
-        float a = motion.getAngle();
+        float a = motion_c.getAngle();
         float c = (float) Math.cos(Math.toRadians(a));
         float s = (float) Math.sin(Math.toRadians(a));
         float x = (getX() + getOriginX()) + c * distance;
         float y = (getY() + getOriginY()) + s * distance;
-        other.motion.centerAtPosition(x, y);
+        other.motion_c.centerAtPosition(x, y);
     }
 
     /*------------------------------------------------------------------*\
@@ -283,14 +277,10 @@ public abstract class CoreEntity extends Group {
         cam.position.set(getX() + getOriginX(), getY() + getOriginY(), 0);
 
         // bound camera to layout
-        cam.position.x = MathUtils.clamp(
-                cam.position.x, cam.viewportWidth / 2,
-                com.modular.Static.World.worldBounds.width - cam.viewportWidth / 2
-        );
-        cam.position.y = MathUtils.clamp(
-                cam.position.y, cam.viewportHeight / 2,
-                com.modular.Static.World.worldBounds.height - cam.viewportHeight / 2
-        );
+        float maxX = World.worldBounds.width - cam.viewportWidth / 2;
+        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth / 2, maxX);
+        float maxY = World.worldBounds.height - cam.viewportHeight / 2;
+        cam.position.y = MathUtils.clamp(cam.position.y, cam.viewportHeight / 2, maxY);
     }
 
     /*------------------------------------------------------------------*\
@@ -368,18 +358,14 @@ public abstract class CoreEntity extends Group {
      * adjust its position to the opposite side of the WORLD.
      */
     public void wrapAroundWorld() {
-        if (getX() + getWidth() < 0) {
-            motion.centerAtPosition(com.modular.Static.World.worldBounds.width, getY());
-        }
-        if (getX() > com.modular.Static.World.worldBounds.width) {
-            motion.centerAtPosition(0, getY());
-        }
-        if (getY() + getHeight() < 0) {
-            motion.centerAtPosition(getX(), com.modular.Static.World.worldBounds.height);
-        }
-        if (getY() > com.modular.Static.World.worldBounds.height) {
-            motion.centerAtPosition(getX(), 0);
-        }
+        if (getX() + getWidth() < 0)
+            motion_c.centerAtPosition(com.modular.Static.World.worldBounds.width, getY());
+        if (getX() > com.modular.Static.World.worldBounds.width)
+            motion_c.centerAtPosition(0, getY());
+        if (getY() + getHeight() < 0)
+            motion_c.centerAtPosition(getX(), com.modular.Static.World.worldBounds.height);
+        if (getY() > com.modular.Static.World.worldBounds.height)
+            motion_c.centerAtPosition(getX(), 0);
     }
 
     /**
@@ -387,18 +373,12 @@ public abstract class CoreEntity extends Group {
      * adjust its position to keep it completely on screen.
      */
     public void boundToWorld() {
-        if (getX() < 0) {
-            setX(0);
-        }
-        if (getX() + getWidth() > com.modular.Static.World.worldBounds.width) {
+        if (getX() < 0) setX(0);
+        if (getX() + getWidth() > com.modular.Static.World.worldBounds.width)
             setX(com.modular.Static.World.worldBounds.width - getWidth());
-        }
-        if (getY() < 0) {
-            setY(0);
-        }
-        if (getY() + getHeight() > com.modular.Static.World.worldBounds.height) {
+        if (getY() < 0) setY(0);
+        if (getY() + getHeight() > com.modular.Static.World.worldBounds.height)
             setY(World.worldBounds.height - getHeight());
-        }
     }
 
     /*------------------------------------------------------------------*\

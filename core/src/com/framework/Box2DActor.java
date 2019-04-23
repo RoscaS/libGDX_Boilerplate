@@ -759,7 +759,7 @@ public class Box2DActor extends Group {
     }
 
     /**
-     * Convenience method for creating a 1-frame animation from a single texture.
+     * Convenience method for creating a 1-frame animation from a single texture_c.
      *
      * @param fileName names of image file
      * @return animation created (useful for storing multiple animations)

@@ -13,7 +13,6 @@ import com.modular.base.CoreEntity;
 import com.modular.base.TilemapEntities;
 import com.mygame.actors.Soldier;
 import com.mygame.actors.Solid;
-import com.mygame.actors.Torch;
 
 public class LevelScreen extends BaseScreen {
 
@@ -30,19 +29,18 @@ public class LevelScreen extends BaseScreen {
         mapCamera = new OrthographicCamera();
         tme = new TilemapEntities("tests/map.tmx", mainStage, mapCamera);
 
-        // World.setTopdownWorld(tme, 1, 1);
+        World.setTopdownWorld(tme, 1, 1);
 
-        new Soldier(100, 300, mainStage);
-        new Torch(50, 300, mainStage);
+        Soldier s1 =  new Soldier(100, 300, mainStage);
+        // new Torch(50, 300, mainStage);
 
-
-        for (MapObject obj : tme.getRectangleList("Solid")) {
-            MapProperties props = obj.getProperties();
-            new Solid(
-                    (float) props.get("x"), (float) props.get("y"),
-                    (float) props.get("width"), (float) props.get("height"), mainStage
-            );
-        }
+        // for (MapObject obj : tme.getRectangleList("Solid")) {
+        //     MapProperties props = obj.getProperties();
+        //     new Solid(
+        //             (float) props.get("x"), (float) props.get("y"),
+        //             (float) props.get("width"), (float) props.get("height"), mainStage
+        //     );
+        // }
 
         mouseListner();
     }
@@ -65,6 +63,7 @@ public class LevelScreen extends BaseScreen {
 
     @Override
     public void dispose() {
+
     }
 
     /*------------------------------------------------------------------*\
@@ -80,28 +79,22 @@ public class LevelScreen extends BaseScreen {
         mainStage.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                // System.out.println("click \t x: " + x + "\ty: " + y);
                 // lastClick = new Vector3(
                 //         (float) (Math.round(x * 100.0) / 100.0),
                 //         (float) (Math.round(y * 100.0) / 100.0),
                 //         button
                 // );
-
                 // clear selected array (click on empty spot)
                 if (mainStage.hit(x, y, true) == null && button == Input.Buttons.LEFT) {
                     Store.selected.clear();
                 }
                 // move selected movables to right click position
                 if (button == Input.Buttons.RIGHT && !Store.selected.isEmpty()) {
-                    for (CoreEntity i : Store.selected) {
-                        // CoreEntity source = (CoreEntity) i;
-                        // source.setDestination(x, y);
-                    }
+                    Store.selected.forEach(i -> i.getMouseComponent().setDestination(x, y));
                 }
-
-                System.out.println(Store.selected);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
     }
-
 }

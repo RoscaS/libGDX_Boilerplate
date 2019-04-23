@@ -18,10 +18,10 @@ public class Solid extends CoreEntity {
         setShapeRectangle();
         setPhysicsProperties(1, .5f, .1f);
 
-        motion = new MotionComponent(this);
-        texture = new TextureComponent(this);
+        motion_c = new MotionComponent(this);
+        texture_c = new TextureComponent(this);
 
-        motion.setStatic();
+        motion_c.setStatic();
 
         setFixedRotation();
         initializePhysics();

@@ -1,12 +1,12 @@
 package com.mygame.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.modular.base.CoreEntity;
+import com.modular.base.TopDownEntity;
 import com.modular.components.MotionComponent;
-import com.modular.components.SelectionComponent;
+import com.modular.components.MouseComponent;
 import com.modular.components.TextureComponent;
 
-public class Soldier extends CoreEntity {
+public class Soldier extends TopDownEntity {
 
 	/*------------------------------------------------------------------*\
 	|*							Constructors						  *|
@@ -16,21 +16,27 @@ public class Soldier extends CoreEntity {
         super(x, y, s);
         setSize(32, 32);
 
-        texture = new TextureComponent(this);
-        motion = new MotionComponent(this);
-        selection = new SelectionComponent(this);
 
+        motion_c = new MotionComponent(this);
+        texture_c = new TextureComponent(this);
+        mouse_c = new MouseComponent(this);
 
-        texture.loadTexture("tests/spaceship.png");
-        motion.setMaxSpeed(1.5f);
-        motion.setDynamic();
+        texture_c.loadAnimationsFromSheet("soldier.png", 4, 4, .2f);
+
+        motion_c.setMaxSpeed(1.5f);
+        motion_c.setAcceleration(2f);
+        motion_c.setDeceleration(200f);
+        motion_c.setDynamic();
 
         setPhysicsProperties(50, .1f, 0);
         setShapeRectangle();
         setFixedRotation();
+
         initializePhysics();
+    }
 
-        getBody().setGravityScale(0);
-
+    @Override
+    public void act(float dt) {
+        super.act(dt);
     }
 }

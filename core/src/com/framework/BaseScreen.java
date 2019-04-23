@@ -89,7 +89,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     }
 
     /**
-     * Useful for checking for touch-down events (mouse clicks).
+     * Useful for checking for touch-down events (mouse_c clicks).
      */
     public boolean isTouchDownEvent(Event e) {
         return (e instanceof InputEvent) && ((InputEvent) e).getType().equals(Type.touchDown);
