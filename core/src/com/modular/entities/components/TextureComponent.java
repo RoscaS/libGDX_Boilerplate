@@ -22,6 +22,8 @@ public class TextureComponent {
     private Animation east;
     private Animation west;
 
+    // Controle
+    private boolean simple;
     private String direction;
 
     /*------------------------------------------------------------------*\
@@ -31,6 +33,7 @@ public class TextureComponent {
     public TextureComponent(CoreEntity entity) {
         this.entity = entity;
         animation = null;
+        simple = false;
         direction = "South";
     }
 
@@ -52,7 +55,7 @@ public class TextureComponent {
     }
 
     public void act(float dt) {
-        if (animation != null) animationUpdate(dt);
+        if (animation != null && !simple) animationUpdate(dt);
     }
 
     /*------------------------------------------------------------------*\
@@ -60,11 +63,11 @@ public class TextureComponent {
    	\*------------------------------------------------------------------*/
 
     private void animationUpdate(float dt) {
-        if (entity.getMouseComponent() != null && entity.getMouseComponent().destination == null) {
+        if (entity.mouseComponent().destination == null) {
             animationPaused = true;
         } else {
             animationPaused = false;
-            float angle = entity.getMotionComponent().getVelocity().angle();
+            float angle = entity.motionComponent().getVelocity().angle();
 
             if (angle >= 45 && angle <= 135) {
                 direction = "North";
@@ -197,6 +200,7 @@ public class TextureComponent {
     public Animation<TextureRegion> loadTexture(String fileName) {
         String[] fileNames = new String[1];
         fileNames[0] = fileName;
+        simple = true;
         return loadAnimationFromFiles(fileNames, 1, true);
     }
 

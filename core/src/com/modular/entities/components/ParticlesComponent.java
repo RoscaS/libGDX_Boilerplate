@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.framework.Box2DActor;
 import com.modular.entities.base.CoreEntity;
 
 public class ParticlesComponent {
@@ -31,17 +30,22 @@ public class ParticlesComponent {
 	|*							Constructors							*|
 	\*------------------------------------------------------------------*/
 
-    public ParticlesComponent(CoreEntity entity, String pfxFile) {
+    public ParticlesComponent(CoreEntity entity) {
         this.entity = entity;
-        effect = new ParticleEffect();
-        effect.load(Gdx.files.internal(pfxFile), Gdx.files.internal(""));
-        ParticleRenderer renderingActor = new ParticleRenderer(effect);
-        entity.addActor(renderingActor);
     }
 
 	/*------------------------------------------------------------------*\
 	|*							Public Methods 							*|
 	\*------------------------------------------------------------------*/
+
+	public void loadParticles(String pfxFile) {
+        effect = new ParticleEffect();
+        effect.load(Gdx.files.internal(pfxFile), Gdx.files.internal(""));
+
+        ParticleRenderer renderingActor = new ParticleRenderer(effect);
+
+        entity.addActor(renderingActor);
+    }
 
     public void start() {
         effect.start();
@@ -58,9 +62,7 @@ public class ParticlesComponent {
         return !effect.isComplete();
     }
 
-    public void centerAtActor(Box2DActor other) {
-        entity.setPosition(other.getX() + other.getWidth() / 2, other.getY() + other.getHeight() / 2);
-    }
+
 
     public void setInfinite() {
         effect.getEmitters().forEach(i -> i.setContinuous(true));

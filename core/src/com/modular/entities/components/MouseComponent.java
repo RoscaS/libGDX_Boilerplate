@@ -42,8 +42,8 @@ public class MouseComponent {
             if (distance <= 20) {
                 clearDestination();
             }
-        } else if (entity.getMotionComponent().isMoving()) {
-            entity.getMotionComponent().decelerate(dt);
+        } else if (entity.motionComponent().isMoving()) {
+            entity.motionComponent().decelerate(dt);
         }
 
 
@@ -53,11 +53,11 @@ public class MouseComponent {
         //
         //     if (distance <= 20) {
         //         clearDestination();
-        //         entity.getMotionComponent().decelerate(dt);
+        //         entity.motionComponent().decelerate(dt);
         //     }
         // }
-        // else if (entity.getMotionComponent().isMoving()) {
-        //     entity.getMotionComponent().decelerate(dt);
+        // else if (entity.motionComponent().isMoving()) {
+        //     entity.motionComponent().decelerate(dt);
         // }
     }
 
@@ -80,7 +80,7 @@ public class MouseComponent {
     }
 
     public void goToDestination() {
-        entity.getMotionComponent().moveTowards(getDestinationAngle());
+        entity.motionComponent().moveTowards(getDestinationAngle());
     }
 
     public void clearDestination() {
@@ -103,7 +103,7 @@ public class MouseComponent {
      * @return angle (degrees)
      */
     public float getDestinationAngle() {
-        if (destination == null) return entity.getMotionComponent().getAngle();
+        if (destination == null) return entity.getAngle();
         float adj = (destination.x - entity.getX()) - (entity.getWidth() / 2);
         float opp = (destination.y - entity.getY()) - (entity.getHeight() / 2);
         return (float) Math.toDegrees(Math.atan2(opp, adj));
@@ -127,10 +127,8 @@ public class MouseComponent {
 
     public void setDestination(float x, float y) {
         destination = new Vector2(x, y);
-        if (entity.getTextureComponent() != null)
-            entity.getTextureComponent().animationPaused = false;
-
-        System.out.println(destination);
+        if (entity.textureComponent() != null)
+            entity.textureComponent().animationPaused = false;
     }
 
     public void setDestination(BaseActor other) {

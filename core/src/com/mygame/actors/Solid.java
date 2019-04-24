@@ -2,8 +2,6 @@ package com.mygame.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.modular.entities.base.CoreEntity;
-import com.modular.entities.components.MotionComponent;
-import com.modular.entities.components.TextureComponent;
 
 public class Solid extends CoreEntity {
 
@@ -15,11 +13,10 @@ public class Solid extends CoreEntity {
         super(x, y, s);
         setSize(width, height);
 
-        motion_c = new MotionComponent(this);
-        texture_c = new TextureComponent(this);
+        addMotionComponent();
+        addTextureComponent();
 
-        motion_c.setStatic();
-
+        setStatic();
         setPhysicsProperties(1, .5f, -1f);
         setShapeRectangle();
         setFixedRotation();

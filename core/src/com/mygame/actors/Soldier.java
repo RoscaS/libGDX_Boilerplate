@@ -2,9 +2,6 @@ package com.mygame.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.modular.entities.base.TopDownEntity;
-import com.modular.entities.components.MotionComponent;
-import com.modular.entities.components.MouseComponent;
-import com.modular.entities.components.TextureComponent;
 
 public class Soldier extends TopDownEntity {
 
@@ -15,21 +12,22 @@ public class Soldier extends TopDownEntity {
     public Soldier(float x, float y, Stage s) {
         super(x, y, s);
 
-        motion_c = new MotionComponent(this);
-        texture_c = new TextureComponent(this);
-        mouse_c = new MouseComponent(this);
+        addMotionComponent();
+        addTextureComponent();
+        addMouseComponent();
 
-        texture_c.loadAnimationsFromSheet("soldier.png", 4, 4, .2f);
-        motion_c.setDynamic();
+        textureComponent().loadAnimationsFromSheet("soldier.png", 4, 4, .2f);
+        setDynamic();
 
-        setPhysicsProperties(50, .3f, 0f);
+        setPhysicsProperties(50, .3f, -1f);
         setShapeRectangle(1.2f, 1.7f);
         setFixedRotation();
         initializePhysics();
 
-        motion_c.setMaxSpeed(1.5f);
-        motion_c.setAcceleration(2f);
-        motion_c.setDeceleration(4f);
+        motionComponent().setMaxSpeed(1.5f);
+        motionComponent().setAcceleration(2f);
+        motionComponent().setDeceleration(4f);
+
     }
 
     @Override

@@ -45,7 +45,7 @@ public class MouseScreen extends BaseScreen {
                 }
                 // move selected movables to right click position
                 if (button == Input.Buttons.RIGHT && !Store.selected.isEmpty()) {
-                    Store.selected.forEach(i -> i.getMouseComponent().setDestination(x, y));
+                    Store.selected.forEach(i -> i.mouseComponent().setDestination(x, y));
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }

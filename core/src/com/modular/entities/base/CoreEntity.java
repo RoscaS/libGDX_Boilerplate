@@ -23,10 +23,11 @@ public class CoreEntity extends Group {
 
 
     // Components
-    protected MotionComponent motion_c;
-    protected MouseComponent mouse_c;
-    protected TextureComponent texture_c;
-    protected ParticlesComponent particles_c;
+    private MotionComponent motion_c;
+    private MouseComponent mouse_c;
+    private TextureComponent texture_c;
+    private ParticlesComponent particles_c;
+    private GrabbableComponent grabbable_c;
 
 
     // State
@@ -50,6 +51,7 @@ public class CoreEntity extends Group {
         mouse_c = null;
         texture_c = null;
         particles_c = null;
+        grabbable_c = null;
 
         // State
         elapsedTime = 0;
@@ -62,7 +64,7 @@ public class CoreEntity extends Group {
     public void initializePhysics() {
 
         // Initialize the body and add it to the physical world (WORD)
-        body = com.modular.Static.World.world.createBody(bodyDef);
+        body = World.world.createBody(bodyDef);
 
         // Initialize a Fixture and attach it to the body
         Fixture fixture = body.createFixture(fixtureDef);
@@ -83,6 +85,35 @@ public class CoreEntity extends Group {
         bodyDef.fixedRotation = true;
     }
 
+
+    /*------------------------------*\
+   	|*		      Behave            *|
+   	\*------------------------------*/
+
+    /**
+     * The body type.
+     * dynamic: positive mass, non-zero velocity determined by forces, moved by solve
+     */
+    public void setDynamic() {
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+    }
+
+    /**
+     * The body type.
+     * kinematic: zero mass, non-zero velocity set by user, moved by solver.
+     */
+    public void setKinematic() {
+        bodyDef.type = BodyDef.BodyType.KinematicBody;
+    }
+
+    /**
+     * The body type.
+     * static: zero mass, zero velocity, may be manually moved.
+     */
+    public void setStatic() {
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+    }
+
     /*------------------------------*\
    	|*		  Shape of the body    *|
    	\*------------------------------*/
@@ -101,7 +132,7 @@ public class CoreEntity extends Group {
         setOriginCenter();
         // position must be centred
         CircleShape circ = new CircleShape();
-        circ.setRadius(getWidth() / (com.modular.Static.World.SCALE * 2 * coeff));
+        circ.setRadius(getWidth() / (World.SCALE * 2 * coeff));
         fixtureDef.shape = circ;
     }
 
@@ -122,18 +153,20 @@ public class CoreEntity extends Group {
      * left corner to his center. Also Applyes the new center to the physical `body`.
      */
     private void setOriginCenter() {
+        if (particles_c != null && texture_c == null) return;
+
         if (getWidth() == 0) {
             System.err.println("error: actor size not set");
         }
         setOrigin(getWidth() / 2, getHeight() / 2);
 
-        float x = (getX() + getOriginX()) / com.modular.Static.World.SCALE;
-        float y = (getY() + getOriginY()) / com.modular.Static.World.SCALE;
+        float x = (getX() + getOriginX()) / World.SCALE;
+        float y = (getY() + getOriginY()) / World.SCALE;
         bodyDef.position.set(x, y);
     }
 
     /*------------------------------*\
-   	|*		 Physical values       *|
+   	|*		 Physical values        *|
    	\*------------------------------*/
 
     /**
@@ -154,6 +187,15 @@ public class CoreEntity extends Group {
     @Override
     public void act(float dt) {
         super.act(dt);
+
+        if (grabbable_c != null) grabbable_c.act(dt);
+
+
+        if (motion_c == null) {
+            if (particles_c != null) particles_c.act(dt);
+            // particles_c.act(dt);
+            return;
+        }
 
         if (texture_c.isAnimationPaused() && !motion_c.isMoving()) return;
         elapsedTime += dt;
@@ -192,44 +234,84 @@ public class CoreEntity extends Group {
         return fixtureDef;
     }
 
-    /*------------------------------*\
-  	|*		 Components Getters	   *|
-  	\*------------------------------*/
-
-    public MotionComponent getMotionComponent() {
-        return motion_c;
-    }
-
-    public TextureComponent getTextureComponent() {
-        return texture_c;
-    }
-
-    public ParticlesComponent getParticlesComponent() {
-        return particles_c;
-    }
-
-    public MouseComponent getMouseComponent() {
-        return mouse_c;
+    public void clearFixtures() {
+        body.getFixtureList().forEach(fixture -> body.destroyFixture(fixture));
     }
 
     /*------------------------------*\
   	|*		 Components Setters	   *|
   	\*------------------------------*/
 
-    public void setMotionComponent(MotionComponent motion) {
-        this.motion_c = motion;
+    public void addMotionComponent() {
+        // this.motion_c = motion;
+        motion_c = new MotionComponent(this);
     }
 
-    public void setTextureComponent(TextureComponent texture) {
-        this.texture_c = texture;
+    public void addTextureComponent() {
+        // this.texture_c = texture;
+        texture_c = new TextureComponent(this);
     }
 
-    public void setParticlesComponent(ParticlesComponent particles) {
-        this.particles_c = particles;
+    public void addParticlesComponent() {
+        // this.particles_c = particles;
+        particles_c = new ParticlesComponent(this);
     }
 
-    public void setMouseComponent(MouseComponent selection) {
-        this.mouse_c = selection;
+    public void addMouseComponent() {
+        // this.mouse_c = selection;
+        mouse_c = new MouseComponent(this);
+    }
+
+    public void addGrabableComponent(float radius) {
+        grabbable_c = new GrabbableComponent(this, radius);
+    }
+
+    /*------------------------------*\
+  	|*		 Components Getters	   *|
+  	\*------------------------------*/
+
+    public MotionComponent motionComponent() {
+        return motion_c;
+    }
+
+    public TextureComponent textureComponent() {
+        return texture_c;
+    }
+
+    public ParticlesComponent particlesComponent() {
+        return particles_c;
+    }
+
+    public MouseComponent mouseComponent() {
+        return mouse_c;
+    }
+
+    public GrabbableComponent grabbableComponent() {
+        return grabbable_c;
+    }
+
+    /*------------------------------*\
+  	|*		 Components Clear	   *|
+  	\*------------------------------*/
+
+    public void clearMotionComponent() {
+        motion_c = null;
+    }
+
+    public void clearTextureComponent() {
+        texture_c = null;
+    }
+
+    public void clearParticlesComponent() {
+        particles_c = null;
+    }
+
+    public void clearMouseComponent() {
+        mouse_c = null;
+    }
+
+    public void clearGrabbableComponent() {
+        grabbable_c = null;
     }
 
     /*------------------------------*\
@@ -263,12 +345,100 @@ public class CoreEntity extends Group {
      * @param distance how far ahead of this actor (metters)
      */
     public void putAhead(CoreEntity other, float distance) {
-        float a = motion_c.getAngle();
+        float a = getAngle();
         float c = (float) Math.cos(Math.toRadians(a));
         float s = (float) Math.sin(Math.toRadians(a));
         float x = (getX() + getOriginX()) + c * distance;
         float y = (getY() + getOriginY()) + s * distance;
-        other.motion_c.centerAtPosition(x, y);
+        other.centerAtPosition(x, y);
+    }
+
+    /*------------------------------------------------------------------*\
+	|*							    Angle                               *|
+	\*------------------------------------------------------------------*/
+
+    /**
+     * Instantly rotate in "angle" direction
+     * If current speed is zero, this will have no effect.
+     * @param angle (degrees)
+     */
+    public void setAngle(float angle) {
+        Vector2 v = getBody().getPosition();
+        float deg = (float) Math.toRadians(angle);
+        getBody().setTransform(v.x, v.y, deg);
+    }
+
+    /**
+     * Get facing angle in degree.
+     * @return facing angle.
+     */
+    public float getAngle() {
+        return (float) Math.toDegrees(getBody().getAngle());
+    }
+
+    /*------------------------------------------------------------------*\
+	|*							    Translations                        *|
+	\*------------------------------------------------------------------*/
+
+    // /**
+    //  * Align center of actor at given position coordinates.
+    //  * @param x x-coordinate to center at (pixels)
+    //  * @param y y-coordinate to center at (pixels)
+    //  */
+    // public void centerAtPosition(float x, float y) {
+    //     float angle = getBody().getAngle();
+    //     getBody().setTransform(x / World.SCALE, y / World.SCALE, angle);
+    // }
+
+    /**
+     * Align center of actor at given position coordinates.
+     * @param x x-coordinate to center at (pixels)
+     * @param y y-coordinate to center at (pixels)
+     */
+    public void centerAtPosition(float x, float y) {
+        float angle = getBody().getAngle();
+        setPosition(x / World.SCALE, y / World.SCALE);
+    }
+
+    public void centerAtActor(CoreEntity other, float adjustX, float adjustY) {
+        float x = other.getX() + other.getWidth() / 2;
+        float y = other.getY() + other.getHeight() / 2;
+        setPosition(x + adjustX, y + adjustY);
+    }
+
+    public void centerAtActor(CoreEntity other) {
+        centerAtActor(other, 0, 0);
+    }
+
+    /**
+     * World coords
+     * Instantly add "value" in meters to the x position of the Actor
+     * @param value in metters
+     */
+    public void translateX(float value) {
+        Vector2 v = getBody().getPosition();
+        getBody().setTransform(v.x + value, v.y, 0);
+    }
+
+    /**
+     * World coords
+     * Instantly add "value" in meters to the y position of the Actor
+     * @param value in metters
+     */
+    public void translateY(float value) {
+        Vector2 v = getBody().getPosition();
+        getBody().setTransform(v.x, v.y + value, 0);
+    }
+
+    /**
+     * World coords
+     * Instantly add `vector.x` and `vector.y` to the current
+     * x and y components of this entity's position.
+     * @param vector Vector2 containing values to add (metters)
+     */
+    public void translate(Vector2 vector) {
+        translateX(vector.x);
+        translateY(vector.y);
     }
 
     /*------------------------------------------------------------------*\
@@ -369,13 +539,13 @@ public class CoreEntity extends Group {
      */
     public void wrapAroundWorld() {
         if (getX() + getWidth() < 0)
-            motion_c.centerAtPosition(com.modular.Static.World.worldBounds.width, getY());
-        if (getX() > com.modular.Static.World.worldBounds.width)
-            motion_c.centerAtPosition(0, getY());
+            centerAtPosition(World.worldBounds.width, getY());
+        if (getX() > World.worldBounds.width)
+            centerAtPosition(0, getY());
         if (getY() + getHeight() < 0)
-            motion_c.centerAtPosition(getX(), com.modular.Static.World.worldBounds.height);
-        if (getY() > com.modular.Static.World.worldBounds.height)
-            motion_c.centerAtPosition(getX(), 0);
+            centerAtPosition(getX(), World.worldBounds.height);
+        if (getY() > World.worldBounds.height)
+            centerAtPosition(getX(), 0);
     }
 
     /**
@@ -384,10 +554,10 @@ public class CoreEntity extends Group {
      */
     public void boundToWorld() {
         if (getX() < 0) setX(0);
-        if (getX() + getWidth() > com.modular.Static.World.worldBounds.width)
-            setX(com.modular.Static.World.worldBounds.width - getWidth());
+        if (getX() + getWidth() > World.worldBounds.width)
+            setX(World.worldBounds.width - getWidth());
         if (getY() < 0) setY(0);
-        if (getY() + getHeight() > com.modular.Static.World.worldBounds.height)
+        if (getY() + getHeight() > World.worldBounds.height)
             setY(World.worldBounds.height - getHeight());
     }
 

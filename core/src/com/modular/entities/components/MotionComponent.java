@@ -2,7 +2,6 @@ package com.modular.entities.components;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.modular.Static.World;
 import com.modular.entities.base.CoreEntity;
 
@@ -31,38 +30,6 @@ public class MotionComponent {
     }
 
     /*------------------------------------------------------------------*\
-	|*						Initialization methods  				  *|
-	\*------------------------------------------------------------------*/
-
-    /*------------------------------*\
-   	|*		      Behave            *|
-   	\*------------------------------*/
-
-    /**
-     * The body type.
-     * dynamic: positive mass, non-zero velocity determined by forces, moved by solve
-     */
-    public void setDynamic() {
-        entity.getBodyDef().type = BodyDef.BodyType.DynamicBody;
-    }
-
-    /**
-     * The body type.
-     * kinematic: zero mass, non-zero velocity set by user, moved by solver.
-     */
-    public void setKinematic() {
-        entity.getBodyDef().type = BodyDef.BodyType.KinematicBody;
-    }
-
-    /**
-     * The body type.
-     * static: zero mass, zero velocity, may be manually moved.
-     */
-    public void setStatic() {
-        entity.getBodyDef().type = BodyDef.BodyType.StaticBody;
-    }
-
-    /*------------------------------------------------------------------*\
 	|*							Public Methods 						  *|
 	\*------------------------------------------------------------------*/
 
@@ -71,27 +38,8 @@ public class MotionComponent {
     }
 
     /*------------------------------*\
-   	|*				Angles		   *|
+   	|*			  Rotation	        *|
    	\*------------------------------*/
-
-    /**
-     * Instantly rotate in "angle" direction
-     * If current speed is zero, this will have no effect.
-     * @param angle (degrees)
-     */
-    public void setAngle(float angle) {
-        Vector2 v = entity.getBody().getPosition();
-        float deg = (float) Math.toRadians(angle);
-        entity.getBody().setTransform(v.x, v.y, deg);
-    }
-
-    /**
-     * Get facing angle in degree.
-     * @return facing angle.
-     */
-    public float getAngle() {
-        return (float) Math.toDegrees(entity.getBody().getAngle());
-    }
 
     /**
      * Get the normalized facing direction vector.
@@ -247,7 +195,7 @@ public class MotionComponent {
      */
     public void applyImpluse(Float strength, Float angle) {
         Vector2 v = new Vector2(1, 1);
-        v.setAngle(getAngle() + angle);
+        v.setAngle(entity.getAngle() + angle);
         v.setLength(strength);
         entity.getBody().applyLinearImpulse(v, entity.getBody().getPosition(), true);
     }
@@ -279,54 +227,9 @@ public class MotionComponent {
         // setVelocity(getVelocity().setLength(getVelocity().len() - dt * getDeceleration()));
         setVelocity(getVelocity().setLength(getSpeed() - dt * deceleration));
 
-        if (getSpeed() < .5f && entity.getTextureComponent().isAnimationFinished()) {
+        if (getSpeed() < .5f && entity.textureComponent().isAnimationFinished()) {
             setSpeed(0);
         }
-    }
-
-    /*------------------------------*\
-   	|*		    Translations 	   *|
-   	\*------------------------------*/
-
-    /**
-     * Align center of actor at given position coordinates.
-     * @param x x-coordinate to center at (pixels)
-     * @param y y-coordinate to center at (pixels)
-     */
-    public void centerAtPosition(float x, float y) {
-        float angle = entity.getBody().getAngle();
-        entity.getBody().setTransform(x / World.SCALE, y / World.SCALE, angle);
-    }
-
-    /**
-     * World coords
-     * Instantly add "value" in meters to the x position of the Actor
-     * @param value in metters
-     */
-    public void translateX(float value) {
-        Vector2 v = entity.getBody().getPosition();
-        entity.getBody().setTransform(v.x + value, v.y, 0);
-    }
-
-    /**
-     * World coords
-     * Instantly add "value" in meters to the y position of the Actor
-     * @param value in metters
-     */
-    public void translateY(float value) {
-        Vector2 v = entity.getBody().getPosition();
-        entity.getBody().setTransform(v.x, v.y + value, 0);
-    }
-
-    /**
-     * World coords
-     * Instantly add `vector.x` and `vector.y` to the current
-     * x and y components of this entity's position.
-     * @param vector Vector2 containing values to add (metters)
-     */
-    public void translate(Vector2 vector) {
-        translateX(vector.x);
-        translateY(vector.y);
     }
 
     /*------------------------------------------------------------------*\
