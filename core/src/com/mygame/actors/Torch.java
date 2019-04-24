@@ -1,15 +1,13 @@
 package com.mygame.actors;
 
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.modular.entities.base.TopDownEntity;
 
 public class Torch extends TopDownEntity {
 
-    Poste poste;
-    Fire fire;
-
-    Soldier owner;
+    private Soldier owner;
+    private Poste poste;
+    private Fire fire;
 
 	/*------------------------------------------------------------------*\
 	|*							Constructors						    *|
@@ -21,13 +19,6 @@ public class Torch extends TopDownEntity {
 
         poste = new Poste(x, y, s);
         fire = new Fire(x, y, s);
-
-        setSize(1,1);
-        setShapeRectangle();
-        initializePhysics();
-
-        getBody().getFixtureList().forEach(f -> getBody().destroyFixture(f));
-
 
         fire.particlesComponent().setInfinite();
         fire.particlesComponent().start();
@@ -54,8 +45,7 @@ public class Torch extends TopDownEntity {
 
         private void initBody() {
             addMotionComponent();
-            // setDynamic();
-            setStatic();
+            setDynamic();
             setPhysicsProperties(1, 1f, 0f);
             setShapeRectangle();
             setFixedRotation();
@@ -98,6 +88,10 @@ public class Torch extends TopDownEntity {
             addParticlesComponent();
             particlesComponent().loadParticles("explosion.pfx");
             setScale(.4f);
+
+            addLightComponent(6);
+            lightComponent().setDansing();
+            lightComponent().getLight().setIgnoreAttachedBody(true);
         }
 
         @Override

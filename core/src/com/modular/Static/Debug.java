@@ -9,7 +9,7 @@ import com.framework.Box2DActor;
 public abstract class Debug {
 
     private static Box2DDebugRenderer b2dr;
-    private static Matrix4 matrix;
+    public static Matrix4 matrix;
 
 
 	/*------------------------------------------------------------------*\

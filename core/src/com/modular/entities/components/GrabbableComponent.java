@@ -14,6 +14,7 @@ public class GrabbableComponent {
     protected CoreEntity entity;
     protected Soldier proximity;
     protected boolean isGrabbed;
+    protected float radius;
 
 	/*------------------------------------------------------------------*\
 	|*							Constructors						  *|
@@ -21,17 +22,9 @@ public class GrabbableComponent {
 
     public GrabbableComponent(CoreEntity entity, float radius) {
         this.entity = entity;
+        this.radius = radius;
         proximity = null;
-
-        FixtureDef sensor = new FixtureDef();
-        sensor.isSensor = true;
-        CircleShape circle = new CircleShape();
-        circle.setRadius(radius / World.SCALE);
-        sensor.shape = circle;
-        Fixture sensorFixture = entity.getBody().createFixture(sensor);
-        sensorFixture.setUserData("grab");
-
-
+        initFixture();
 
         World.world.setContactListener(new ContactListener() {
             @Override
@@ -46,15 +39,9 @@ public class GrabbableComponent {
                 proximity = null;
             }
 
-            @Override
-            public void preSolve(Contact contact, Manifold oldManifold) {
+            @Override public void preSolve(Contact contact, Manifold oldManifold) { }
+            @Override public void postSolve(Contact contact, ContactImpulse impulse) { }
 
-            }
-
-            @Override
-            public void postSolve(Contact contact, ContactImpulse impulse) {
-
-            }
         });
     }
 
@@ -73,4 +60,14 @@ public class GrabbableComponent {
 	/*------------------------------------------------------------------*\
 	|*							Public Methods 						  *|
 	\*------------------------------------------------------------------*/
+
+	public void initFixture() {
+        FixtureDef sensor = new FixtureDef();
+        sensor.isSensor = true;
+        CircleShape circle = new CircleShape();
+        circle.setRadius(radius / World.SCALE);
+        sensor.shape = circle;
+        Fixture sensorFixture = entity.getBody().createFixture(sensor);
+        sensorFixture.setUserData("grab");
+    }
 }

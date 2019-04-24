@@ -28,6 +28,7 @@ public class CoreEntity extends Group {
     private TextureComponent texture_c;
     private ParticlesComponent particles_c;
     private GrabbableComponent grabbable_c;
+    private LightComponent light_c;
 
 
     // State
@@ -37,9 +38,9 @@ public class CoreEntity extends Group {
 	|*							Constructors						  *|
 	\*------------------------------------------------------------------*/
 
-    public CoreEntity(float x, float y, Stage s) {
+    public CoreEntity(float x, float y, Stage stage) {
         setPosition(x, y);
-        s.addActor(this);
+        stage.addActor(this);
 
         // Core attributes
         body = null;
@@ -55,6 +56,10 @@ public class CoreEntity extends Group {
 
         // State
         elapsedTime = 0;
+    }
+
+    public CoreEntity(Stage stage) {
+        this(100f, 100f, stage);
     }
 
     /**
@@ -243,23 +248,23 @@ public class CoreEntity extends Group {
   	\*------------------------------*/
 
     public void addMotionComponent() {
-        // this.motion_c = motion;
         motion_c = new MotionComponent(this);
     }
 
     public void addTextureComponent() {
-        // this.texture_c = texture;
         texture_c = new TextureComponent(this);
     }
 
     public void addParticlesComponent() {
-        // this.particles_c = particles;
         particles_c = new ParticlesComponent(this);
     }
 
     public void addMouseComponent() {
-        // this.mouse_c = selection;
         mouse_c = new MouseComponent(this);
+    }
+
+    public void addLightComponent(float size) {
+        light_c = new LightComponent(this, size);
     }
 
     public void addGrabableComponent(float radius) {
@@ -286,6 +291,10 @@ public class CoreEntity extends Group {
         return mouse_c;
     }
 
+    public LightComponent lightComponent() {
+        return light_c;
+    }
+
     public GrabbableComponent grabbableComponent() {
         return grabbable_c;
     }
@@ -308,6 +317,10 @@ public class CoreEntity extends Group {
 
     public void clearMouseComponent() {
         mouse_c = null;
+    }
+
+    public void clearLightComponent() {
+        light_c = null;
     }
 
     public void clearGrabbableComponent() {
@@ -397,7 +410,7 @@ public class CoreEntity extends Group {
      */
     public void centerAtPosition(float x, float y) {
         float angle = getBody().getAngle();
-        setPosition(x / World.SCALE, y / World.SCALE);
+        body.setTransform(x / World.SCALE, y / World.SCALE, angle);
     }
 
     public void centerAtActor(CoreEntity other, float adjustX, float adjustY) {

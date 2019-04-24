@@ -56,15 +56,10 @@ public abstract class BaseScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         // draw the graphics
         mainStage.draw();
         uiStage.draw();
-
-        // Physical world
-        World.world.step(1 / 60f, 6, 2);
-
-        // Debug
-        Debug.debugRenderUpdate(mainStage);
     }
 
     /*------------------------------------------------------------------*\

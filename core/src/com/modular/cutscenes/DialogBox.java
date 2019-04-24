@@ -1,9 +1,10 @@
-package com.framework;
+package com.modular.cutscenes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.framework.BaseActor;
 import com.modular.game.BaseGame;
 
 public class DialogBox extends BaseActor {

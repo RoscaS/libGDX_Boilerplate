@@ -8,6 +8,6 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 
 		Game myGame = new MyGame();
-		LwjglApplication launcher = new LwjglApplication(myGame, "My Game", 800, 600);
+		LwjglApplication launcher = new LwjglApplication(myGame, "My Game", 1920, 1080);
 	}
 }

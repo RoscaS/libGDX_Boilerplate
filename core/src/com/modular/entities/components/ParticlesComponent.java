@@ -9,22 +9,8 @@ import com.modular.entities.base.CoreEntity;
 public class ParticlesComponent {
 
     protected CoreEntity entity;
-
     protected ParticleEffect effect;
-
-
-    private class ParticleRenderer extends Actor {
-        private ParticleEffect effect;
-
-        ParticleRenderer(ParticleEffect e) {
-            effect = e;
-        }
-
-        @Override
-        public void draw(Batch batch, float parentAlpha) {
-            effect.draw(batch);
-        }
-    }
+    protected ParticleRenderer handler;
 
 	/*------------------------------------------------------------------*\
 	|*							Constructors							*|
@@ -41,10 +27,8 @@ public class ParticlesComponent {
 	public void loadParticles(String pfxFile) {
         effect = new ParticleEffect();
         effect.load(Gdx.files.internal(pfxFile), Gdx.files.internal(""));
-
-        ParticleRenderer renderingActor = new ParticleRenderer(effect);
-
-        entity.addActor(renderingActor);
+        handler = new ParticleRenderer(effect);
+        entity.addActor(handler);
     }
 
     public void start() {
@@ -74,6 +58,23 @@ public class ParticlesComponent {
         if (effect.isComplete() && !effect.getEmitters().first().isContinuous()) {
             effect.dispose();
             entity.remove();
+        }
+    }
+
+    /*------------------------------------------------------------------*\
+   	|*							    Parts  						        *|
+   	\*------------------------------------------------------------------*/
+
+    private class ParticleRenderer extends Actor {
+        private ParticleEffect effect;
+
+        ParticleRenderer(ParticleEffect e) {
+            effect = e;
+        }
+
+        @Override
+        public void draw(Batch batch, float parentAlpha) {
+            effect.draw(batch);
         }
     }
 }

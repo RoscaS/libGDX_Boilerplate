@@ -11,8 +11,12 @@ public class TopDownEntity extends CoreEntity {
 	|*							Constructors						  *|
 	\*------------------------------------------------------------------*/
 
-    public TopDownEntity(float x, float y, Stage s) {
-        super(x, y, s);
+    public TopDownEntity(float x, float y, Stage stage) {
+        super(x, y, stage);
+    }
+
+    public TopDownEntity(Stage stage) {
+        super(stage);
     }
 
     @Override

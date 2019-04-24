@@ -1,9 +1,12 @@
 package com.modular.screen;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.modular.Static.Debug;
 import com.modular.Static.Store;
 import com.modular.Static.World;
 
@@ -21,6 +24,7 @@ public class MouseScreen extends BaseScreen {
         mapCamera = new OrthographicCamera();
         mouseListner();
 
+        World.lights.setAmbientLight(new Color(0x11111100));
     }
 
     /*------------------------------------------------------------------*\
@@ -28,7 +32,37 @@ public class MouseScreen extends BaseScreen {
    	\*------------------------------------------------------------------*/
 
     @Override
+    public void render(float dt) {
+        super.render(dt);
+
+        // Physical world
+        World.world.step(1 / 60f, 6, 2);
+
+        // Debug
+        Debug.matrix = new Matrix4(mainStage.getCamera().combined);
+        Debug.matrix.scl(World.SCALE);
+
+        World.lights.setCombinedMatrix(Debug.matrix, 0, 0, mapCamera.viewportWidth, mapCamera.viewportHeight);
+        World.lights.updateAndRender();
+
+        // Debug.debugRenderUpdate(mainStage);
+    }
+
+    @Override
     public void update(float dt) {
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        OrthographicCamera mainCamera = (OrthographicCamera) mainStage.getCamera();
+        if (amount == 1) {
+            mapCamera.zoom += .2f;
+            mainCamera.zoom += .2f;
+        } else if (amount == -1) {
+            mapCamera.zoom -= .2f;
+            mainCamera.zoom -= .2f;
+        }
+        return super.scrolled(amount);
     }
 
 	/*------------------------------------------------------------------*\
