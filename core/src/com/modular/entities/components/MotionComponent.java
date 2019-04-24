@@ -1,10 +1,10 @@
-package com.modular.components;
+package com.modular.entities.components;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.modular.Static.World;
-import com.modular.base.CoreEntity;
+import com.modular.entities.base.CoreEntity;
 
 
 public class MotionComponent {
@@ -24,6 +24,10 @@ public class MotionComponent {
 
     public MotionComponent(CoreEntity entity) {
         this.entity = entity;
+
+        maxSpeed = 1.5f;
+        acceleration = 2f;
+        deceleration = 2f;
     }
 
     /*------------------------------------------------------------------*\
@@ -272,11 +276,8 @@ public class MotionComponent {
      * @param dt
      */
     public void decelerate(float dt) {
-        // System.out.println(getVelocity());
-        // System.out.println(getSpeed());
-        System.out.println(dt * deceleration);
-        // setVelocity(getVelocity().setLength(getSpeed() - dt * deceleration));
-        setVelocity(getVelocity().setLength(getVelocity().len() - dt));
+        // setVelocity(getVelocity().setLength(getVelocity().len() - dt * getDeceleration()));
+        setVelocity(getVelocity().setLength(getSpeed() - dt * deceleration));
 
         if (getSpeed() < .5f && entity.getTextureComponent().isAnimationFinished()) {
             setSpeed(0);
@@ -286,7 +287,6 @@ public class MotionComponent {
     /*------------------------------*\
    	|*		    Translations 	   *|
    	\*------------------------------*/
-
 
     /**
      * Align center of actor at given position coordinates.

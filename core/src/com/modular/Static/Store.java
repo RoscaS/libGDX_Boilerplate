@@ -1,7 +1,7 @@
 package com.modular.Static;
 
 import com.badlogic.gdx.utils.Array;
-import com.modular.base.CoreEntity;
+import com.modular.entities.base.CoreEntity;
 
 public abstract class Store {
 

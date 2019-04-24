@@ -1,9 +1,9 @@
 package com.mygame.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.modular.base.CoreEntity;
-import com.modular.components.MotionComponent;
-import com.modular.components.TextureComponent;
+import com.modular.entities.base.CoreEntity;
+import com.modular.entities.components.MotionComponent;
+import com.modular.entities.components.TextureComponent;
 
 public class Solid extends CoreEntity {
 
@@ -13,17 +13,17 @@ public class Solid extends CoreEntity {
 
     public Solid(float x, float y, float width, float height, Stage s) {
         super(x, y, s);
-
         setSize(width, height);
-        setShapeRectangle();
-        setPhysicsProperties(1, .5f, .1f);
 
         motion_c = new MotionComponent(this);
         texture_c = new TextureComponent(this);
 
         motion_c.setStatic();
 
+        setPhysicsProperties(1, .5f, -1f);
+        setShapeRectangle();
         setFixedRotation();
+
         initializePhysics();
 
     }

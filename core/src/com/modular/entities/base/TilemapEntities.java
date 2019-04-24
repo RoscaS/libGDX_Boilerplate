@@ -1,4 +1,4 @@
-package com.modular.base;
+package com.modular.entities.base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;

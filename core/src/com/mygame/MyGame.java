@@ -1,8 +1,7 @@
 package com.mygame;
 
-import com.framework.BaseGame;
+import com.modular.game.BaseGame;
 import com.mygame.screens.LevelScreen;
-import com.mygame.screens.MainMenuScreen;
 
 public class MyGame extends BaseGame {
 

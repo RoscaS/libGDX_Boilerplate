@@ -1,11 +1,11 @@
-package com.modular.components;
+package com.modular.entities.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.framework.Box2DActor;
-import com.modular.base.CoreEntity;
+import com.modular.entities.base.CoreEntity;
 
 public class ParticlesComponent {
 

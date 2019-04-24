@@ -1,4 +1,4 @@
-package com.modular.components;
+package com.modular.entities.components;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.framework.BaseActor;
 import com.modular.Static.Store;
-import com.modular.base.CoreEntity;
+import com.modular.entities.base.CoreEntity;
 
 public class MouseComponent {
 
@@ -33,18 +33,32 @@ public class MouseComponent {
     }
 
     private void positionUpdate(float dt) {
+
         if (destination != null) {
             goToDestination();
+
             float distance = distanceToDestination();
 
             if (distance <= 20) {
                 clearDestination();
-                entity.getMotionComponent().decelerate(dt);
             }
-        }
-        else if (entity.getMotionComponent().isMoving()) {
+        } else if (entity.getMotionComponent().isMoving()) {
             entity.getMotionComponent().decelerate(dt);
         }
+
+
+        // if (destination != null) {
+        //     goToDestination();
+        //     float distance = distanceToDestination();
+        //
+        //     if (distance <= 20) {
+        //         clearDestination();
+        //         entity.getMotionComponent().decelerate(dt);
+        //     }
+        // }
+        // else if (entity.getMotionComponent().isMoving()) {
+        //     entity.getMotionComponent().decelerate(dt);
+        // }
     }
 
     /*------------------------------------------------------------------*\

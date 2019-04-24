@@ -1,10 +1,9 @@
-package com.modular.base;
+package com.modular.entities.base;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.joints.FrictionJointDef;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.modular.Static.World;
-import com.modular.base.CoreEntity;
 
 public class TopDownEntity extends CoreEntity {
 

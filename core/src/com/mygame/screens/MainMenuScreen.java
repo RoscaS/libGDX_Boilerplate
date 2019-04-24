@@ -7,9 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.framework.BaseActor;
-import com.framework.BaseGame;
-import com.framework.BaseScreen;
-import com.mygame.MyGame;
+import com.modular.game.BaseGame;
+import com.modular.screen.BaseScreen;
 
 public class MainMenuScreen extends BaseScreen {
 

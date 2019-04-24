@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.modular.base.CoreEntity;
-import com.modular.base.TilemapEntities;
+import com.modular.entities.base.CoreEntity;
+import com.modular.entities.base.TilemapEntities;
 
 public abstract class World {
 

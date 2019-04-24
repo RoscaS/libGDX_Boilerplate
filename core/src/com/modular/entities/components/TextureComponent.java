@@ -1,4 +1,4 @@
-package com.modular.components;
+package com.modular.entities.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.modular.base.CoreEntity;
+import com.modular.entities.base.CoreEntity;
 
 public class TextureComponent {
 
@@ -31,6 +31,7 @@ public class TextureComponent {
     public TextureComponent(CoreEntity entity) {
         this.entity = entity;
         animation = null;
+        direction = "South";
     }
 
     /*------------------------------------------------------------------*\
@@ -51,7 +52,7 @@ public class TextureComponent {
     }
 
     public void act(float dt) {
-        animationUpdate(dt);
+        if (animation != null) animationUpdate(dt);
     }
 
     /*------------------------------------------------------------------*\
@@ -59,7 +60,7 @@ public class TextureComponent {
    	\*------------------------------------------------------------------*/
 
     private void animationUpdate(float dt) {
-        if (entity.getMouseComponent().destination == null) {
+        if (entity.getMouseComponent() != null && entity.getMouseComponent().destination == null) {
             animationPaused = true;
         } else {
             animationPaused = false;
@@ -68,6 +69,7 @@ public class TextureComponent {
             if (angle >= 45 && angle <= 135) {
                 direction = "North";
                 setAnimation(north);
+
             } else if (angle > 135 && angle < 225) {
                 setAnimation(west);
                 direction = "West";

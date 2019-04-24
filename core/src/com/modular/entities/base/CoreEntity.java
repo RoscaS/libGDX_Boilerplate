@@ -1,4 +1,4 @@
-package com.modular.base;
+package com.modular.entities.base;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.modular.Static.World;
-import com.modular.components.*;
+import com.modular.entities.components.*;
 
 import java.util.ArrayList;
 
@@ -31,8 +31,6 @@ public class CoreEntity extends Group {
 
     // State
     protected float elapsedTime;
-
-
 
     /*------------------------------------------------------------------*\
 	|*							Constructors						  *|
@@ -89,22 +87,34 @@ public class CoreEntity extends Group {
    	|*		  Shape of the body    *|
    	\*------------------------------*/
 
-    public void setShapeRectangle() {
+    public void setShapeRectangle(float coeffW, float coeffH) {
         // position must be centred
         setOriginCenter();
         PolygonShape rect = new PolygonShape();
-        float w = getWidth() / (World.SCALE * 2);
-        float h = getHeight() / (World.SCALE * 2);
+        float w = getWidth() / (World.SCALE * 2 * coeffW);
+        float h = getHeight() / (World.SCALE * 2 * coeffH);
         rect.setAsBox(w, h);
         fixtureDef.shape = rect;
     }
 
-    public void setShapeCircle() {
+    public void setShapeCircle(float coeff) {
         setOriginCenter();
         // position must be centred
         CircleShape circ = new CircleShape();
-        circ.setRadius(getWidth() / (com.modular.Static.World.SCALE * 2));
+        circ.setRadius(getWidth() / (com.modular.Static.World.SCALE * 2 * coeff));
         fixtureDef.shape = circ;
+    }
+
+    public void setShapeRectangle(float coeff) {
+        setShapeRectangle(coeff, coeff);
+    }
+
+    public void setShapeRectangle() {
+        setShapeRectangle(1, 1);
+    }
+
+    public void setShapeCircle() {
+        setShapeCircle(1);
     }
 
     /**
@@ -418,7 +428,4 @@ public class CoreEntity extends Group {
     public static int count(Stage stage, String className) {
         return getList(stage, className).size();
     }
-
-
-
 }
