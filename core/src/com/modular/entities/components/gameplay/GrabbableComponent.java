@@ -1,4 +1,4 @@
-package com.modular.entities.components;
+package com.modular.entities.components.gameplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

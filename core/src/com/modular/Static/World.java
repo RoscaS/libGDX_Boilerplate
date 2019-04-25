@@ -1,14 +1,12 @@
 package com.modular.Static;
 
 import box2dLight.RayHandler;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.*;
 import com.modular.entities.base.CoreEntity;
-import com.modular.entities.base.TilemapEntities;
+import com.modular.map.TilemapEntities;
 
 public abstract class World {
 
@@ -26,9 +24,15 @@ public abstract class World {
     // Stores size of game WORLD for all actors
     public static Rectangle worldBounds;
 
+    // Debug renderer
+    public static Box2DDebugRenderer b2r;
+
+    // Projection matrix
+    public static Matrix4 projectionMatrix;
+
 
 	/*------------------------------------------------------------------*\
-	|*							Initialization						  *|
+	|*							Initialization			                *|
 	\*------------------------------------------------------------------*/
 
     public static void initialize() {
@@ -38,13 +42,13 @@ public abstract class World {
         frictionerBox = null;
     }
 
-	/*------------------------------------------------------------------*\
-	|*							Public Methods 						  *|
-	\*------------------------------------------------------------------*/
-
-	public static void initWorld(Vector2 gravity, boolean doSleep) {
+    public static void initWorld(Vector2 gravity, boolean doSleep) {
         world = new com.badlogic.gdx.physics.box2d.World(gravity, doSleep);
     }
+
+    /*------------------------------------------------------------------*\
+   	|*							Public Methods 						    *|
+   	\*------------------------------------------------------------------*/
 
 	public static void initLights() {
         lights = new RayHandler(world);

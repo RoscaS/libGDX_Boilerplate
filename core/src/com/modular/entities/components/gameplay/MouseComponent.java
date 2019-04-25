@@ -1,4 +1,4 @@
-package com.modular.entities.components;
+package com.modular.entities.components.gameplay;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.framework.BaseActor;
 import com.modular.Static.Store;
 import com.modular.entities.base.CoreEntity;
+import com.modular.player.Player;
 
 public class MouseComponent {
 
@@ -56,10 +57,17 @@ public class MouseComponent {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
-                if (button == Input.Buttons.LEFT && !Store.selected.contains(entity, false)) {
-                    Store.selected.add(entity);
+                Player player = Store.getPlayer("A");
+
+                boolean leftClick = button == Input.Buttons.LEFT;
+                boolean contains = player.getSelection().contains(entity, false);
+                boolean owner = entity.getOwner().equals(player);
+
+                if (leftClick && owner && !contains) {
+                    player.getSelection().add(entity);
                 }
-                System.out.println(Store.selected);
+                System.out.println(player.getSelection());
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -85,7 +93,6 @@ public class MouseComponent {
     /**
      * Calculates the angle between the facing angle of this Actor
      * and the destination point.
-     *
      * @return angle (degrees)
      */
     public float getDestinationAngle() {
@@ -97,7 +104,6 @@ public class MouseComponent {
 
     /**
      * Calculates the distance units between this actor and destination point.
-     *
      * @return distance
      */
     public float distanceToDestination() {
@@ -114,7 +120,7 @@ public class MouseComponent {
     public void setDestination(float x, float y) {
         destination = new Vector2(x, y);
         if (entity.textureComponent() != null)
-            entity.textureComponent().animationPaused = false;
+            entity.textureComponent().setAnimationPaused(false);
     }
 
     public void setDestination(BaseActor other) {

@@ -5,7 +5,7 @@ import com.modular.entities.base.TopDownEntity;
 
 public class Torch extends TopDownEntity {
 
-    private Soldier owner;
+    private Soldier grabber;
     private Poste poste;
     private Fire fire;
 
@@ -15,7 +15,7 @@ public class Torch extends TopDownEntity {
 
     public Torch(float x, float y, float scale, Stage stage) {
         super(x, y, stage);
-        owner = null;
+        grabber = null;
 
         poste = new Poste(x, y, stage);
         fire = new Fire(x, y, scale, stage);
@@ -66,9 +66,9 @@ public class Torch extends TopDownEntity {
         @Override
         public void act(float dt) {
             super.act(dt);
-            if (owner != null) {
+            if (grabber != null) {
                 clearMotionComponent();
-                centerAtActor(owner);
+                centerAtActor(grabber);
                 clearFixtures();
                 isGrabbed = false;
             } else if (!isGrabbed){
@@ -78,11 +78,11 @@ public class Torch extends TopDownEntity {
         }
 
         public void grabedBy(Soldier other) {
-            owner = other;
+            grabber = other;
         }
 
         public void drop() {
-            owner = null;
+            grabber = null;
         }
     }
 

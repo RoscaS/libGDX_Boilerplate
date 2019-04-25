@@ -55,12 +55,37 @@ public class MainMenuScreen extends BaseScreen {
         uiTable.add(quitButton);
     }
 
+    @Override
+    public void initMap() {
+
+    }
+
+    @Override
+    public void initPlayers() {
+
+    }
+
+    @Override
+    public void initActors() {
+
+    }
+
+    @Override
+    public void initUi() {
+
+    }
+
 	/*------------------------------------------------------------------*\
 	|*							Public Methods 							*|
 	\*------------------------------------------------------------------*/
 
     @Override
     public void update(float dt) { }
+
+    @Override
+    public void updateUi(float dt) {
+
+    }
 
     @Override
     public boolean keyDown(int KeyCode) {

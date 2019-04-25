@@ -8,16 +8,14 @@ import com.framework.Box2DActor;
 
 public abstract class Debug {
 
+    // Debug renderer
     private static Box2DDebugRenderer b2dr;
+
+    // Projection matrix
     public static Matrix4 matrix;
 
-
-	/*------------------------------------------------------------------*\
-	|*							Constructors						  *|
-	\*------------------------------------------------------------------*/
-
-	/*------------------------------------------------------------------*\
-	|*							Public Methods 						  *|
+    /*------------------------------------------------------------------*\
+	|*							Public Methods 					        *|
 	\*------------------------------------------------------------------*/
 
 	public static void initDebug(Stage stage) {
@@ -30,7 +28,7 @@ public abstract class Debug {
     }
 
 	/*------------------------------*\
-	|*				Getters		     *|
+	|*				Getters		    *|
 	\*------------------------------*/
 
 	public static void debugRenderUpdate(Stage stage) {
@@ -39,10 +37,10 @@ public abstract class Debug {
     }
 
 	/*------------------------------*\
-	|*				Setters		   *|
+	|*				Setters		    *|
 	\*------------------------------*/
 
 	/*------------------------------------------------------------------*\
-	|*							Private Methods 				      *|
+	|*							Private Methods 				        *|
 	\*------------------------------------------------------------------*/
 }

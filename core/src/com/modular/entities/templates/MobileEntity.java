@@ -2,6 +2,7 @@ package com.modular.entities.templates;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.modular.entities.base.TopDownEntity;
+import com.modular.player.Player;
 
 public class MobileEntity extends TopDownEntity {
 
@@ -9,8 +10,9 @@ public class MobileEntity extends TopDownEntity {
 	|*							Constructors						  *|
 	\*------------------------------------------------------------------*/
 
-    public MobileEntity(float x, float y, Stage stage) {
+    public MobileEntity(float x, float y, Stage stage, Player owner) {
         super(x, y, stage);
+        setOwner(owner);
         addMotionComponent();
         addTextureComponent();
         addMouseComponent();

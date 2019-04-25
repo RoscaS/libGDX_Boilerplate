@@ -1,4 +1,4 @@
-package com.modular.entities.base;
+package com.modular.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.modular.Static.World;
+import com.modular.entities.templates.DecorationEntity;
 
 import java.util.Iterator;
 
@@ -33,7 +34,7 @@ public class TilemapEntities extends Actor {
 
     // tiledmap utils
     private TiledMap tiledMap;
-    private OrthographicCamera tiledCamera;
+    public OrthographicCamera tiledCamera;
     private OrthoCachedTiledMapRenderer tiledMapRenderer;
 
 	/*------------------------------------------------------------------*\
@@ -60,9 +61,6 @@ public class TilemapEntities extends Actor {
         tiledMapRenderer = new OrthoCachedTiledMapRenderer(tiledMap);
         tiledMapRenderer.setBlending(true);
 
-        // tiledCamera = new OrthographicCamera();
-
-
         // by adding object to Stage, can be drawn automatically
         mainStage.addActor(this);
     }
@@ -76,6 +74,16 @@ public class TilemapEntities extends Actor {
         tiledCamera = mainCamera;
         tiledCamera.setToOrtho(false, windowWidth, windowHeight);
         tiledCamera.update();
+    }
+
+    public void extractDecorations(Stage mainStage) {
+        for (MapObject obj : getRectangleList("Solid")) {
+            MapProperties props = obj.getProperties();
+            new DecorationEntity(
+                    (float) props.get("x"), (float) props.get("y"),
+                    (float) props.get("width"), (float) props.get("height"), mainStage
+            );
+        }
     }
 
 	/*------------------------------*\
@@ -158,10 +166,6 @@ public class TilemapEntities extends Actor {
         }
         return list;
     }
-
-	/*------------------------------------------------------------------*\
-	|*							Public Methods 							*|
-	\*------------------------------------------------------------------*/
 
     public void alignCameraMouse() {
             OrthographicCamera cam = (OrthographicCamera) getStage().getCamera();

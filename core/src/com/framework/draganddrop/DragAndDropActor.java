@@ -51,7 +51,7 @@ public class DragAndDropActor extends BaseActor {
 
                         self.toFront();
 
-                        // increase size; object appears larger when lifted by player
+                        // increase size; object appears larger when lifted by owner
                         self.addAction(Actions.scaleTo(1.1f, 1.1f, 0.25f));
 
                         self.onDragStart();
@@ -87,7 +87,7 @@ public class DragAndDropActor extends BaseActor {
                             }
                         }
 
-                        // return object to original size when dropped by player
+                        // return object to original size when dropped by owner
                         self.addAction(Actions.scaleTo(1.00f, 1.00f, 0.25f));
 
                         self.onDrop();

@@ -1,4 +1,4 @@
-package com.modular.entities.components;
+package com.modular.entities.components.look;
 
 import box2dLight.PointLight;
 import com.badlogic.gdx.graphics.Color;

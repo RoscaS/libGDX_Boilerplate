@@ -27,7 +27,7 @@ public class Box2DSensor extends Box2DActor {
         // first, perform initialization tasks from Box2DActor
         super.postConstruction();
 
-        // create additional player-specific texture_c
+        // create additional owner-specific texture_c
         FixtureDef bottomSensor = new FixtureDef();
         bottomSensor.isSensor = true;
         PolygonShape sensorShape = new PolygonShape();

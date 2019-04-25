@@ -1,4 +1,4 @@
-package com.modular.entities.components;
+package com.modular.entities.components.gameplay;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;

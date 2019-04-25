@@ -1,27 +1,21 @@
-package com.mygame.actors;
+package com.modular.entities.templates;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.modular.entities.base.CoreEntity;
 
-public class Solid extends CoreEntity {
+public class DecorationEntity extends CoreEntity {
 
 	/*------------------------------------------------------------------*\
 	|*							Constructors						  *|
 	\*------------------------------------------------------------------*/
 
-    public Solid(float x, float y, float width, float height, Stage s) {
+    public DecorationEntity(float x, float y, float width, float height, Stage s) {
         super(x, y, s);
         setSize(width, height);
 
-        addMotionComponent();
         addTextureComponent();
-
-        setStatic();
-        setPhysicsProperties(100, 0, 0);
         setShapeRectangle();
-        setFixedRotation();
-
+        setStatic();
         initializePhysics();
-
     }
 }

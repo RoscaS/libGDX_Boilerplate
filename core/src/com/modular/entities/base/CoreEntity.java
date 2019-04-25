@@ -10,26 +10,33 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.modular.Static.World;
-import com.modular.entities.components.*;
+import com.modular.entities.components.gameplay.GrabbableComponent;
+import com.modular.entities.components.gameplay.MotionComponent;
+import com.modular.entities.components.gameplay.MouseComponent;
+import com.modular.entities.components.look.LightComponent;
+import com.modular.entities.components.look.ParticlesComponent;
+import com.modular.entities.components.look.TextureComponent;
+import com.modular.player.Player;
 
 import java.util.ArrayList;
 
 public class CoreEntity extends Group {
+
+    // Owner
+    protected Player owner;
 
     // Core attributes
     protected Body body;
     protected BodyDef bodyDef;
     protected FixtureDef fixtureDef;
 
-
     // Components
-    private MotionComponent motion_c;
-    private MouseComponent mouse_c;
-    private TextureComponent texture_c;
-    private ParticlesComponent particles_c;
-    private GrabbableComponent grabbable_c;
-    private LightComponent light_c;
-
+    protected MotionComponent motion_c;
+    protected MouseComponent mouse_c;
+    protected TextureComponent texture_c;
+    protected ParticlesComponent particles_c;
+    protected GrabbableComponent grabbable_c;
+    protected LightComponent light_c;
 
     // State
     protected float elapsedTime;
@@ -226,6 +233,22 @@ public class CoreEntity extends Group {
 	/*------------------------------------------------------------------*\
 	|*							Public Methods   					  *|
 	\*------------------------------------------------------------------*/
+
+    /*------------------------------*\
+  	|*		        Player          *|
+  	\*------------------------------*/
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    /*------------------------------*\
+  	|*		        Core            *|
+  	\*------------------------------*/
 
     public Body getBody() {
         return body;

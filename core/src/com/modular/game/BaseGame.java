@@ -16,12 +16,12 @@ import com.modular.screen.BaseScreen;
 
 /**
  * Created when program is launched;
- * manages the screens that appear during the game.
+ * manages the screens that appear during the main.
  */
 public abstract class BaseGame extends Game {
 
 
-    // stores reference to game; used when calling setActiveScreen method.
+    // stores reference to main; used when calling setActiveScreen method.
     private static BaseGame game;
 
     // texts
@@ -34,14 +34,14 @@ public abstract class BaseGame extends Game {
    	\*------------------------------------------------------------------*/
 
     /**
-     * Called when game is initialized; stores global reference to game object.
+     * Called when main is initialized; stores global reference to main object.
      */
     public BaseGame() {
         game = this;
     }
 
     /**
-     * Called when game is initialized,
+     * Called when main is initialized,
      * after Gdx.input and other objects have been initialized.
      */
     @Override
@@ -62,7 +62,7 @@ public abstract class BaseGame extends Game {
    	\*------------------------------------------------------------------*/
 
     /**
-     * Used to switch screens while game is running.
+     * Used to switch screens while main is running.
      * Method is static to simplify usage.
      */
     public static void setActiveScreen(BaseScreen screen) {

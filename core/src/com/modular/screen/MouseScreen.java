@@ -9,8 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.modular.Static.Debug;
 import com.modular.Static.Store;
 import com.modular.Static.World;
+import com.modular.player.Player;
 
-public class MouseScreen extends BaseScreen {
+public abstract class MouseScreen extends BaseScreen {
 
     protected OrthographicCamera mapCamera;
 
@@ -20,11 +21,12 @@ public class MouseScreen extends BaseScreen {
 
     @Override
     public void initialize() {
-        World.initialize();
         mapCamera = new OrthographicCamera();
-        mouseListner();
 
+        World.initialize();
         World.lights.setAmbientLight(new Color(0x11111100));
+
+        mouseListner();
     }
 
     /*------------------------------------------------------------------*\
@@ -38,22 +40,44 @@ public class MouseScreen extends BaseScreen {
         // Physical world
         World.world.step(1 / 60f, 6, 2);
 
-        // Debug
+        // Debug init
         Debug.matrix = new Matrix4(mainStage.getCamera().combined);
         Debug.matrix.scl(World.SCALE);
 
-        World.lights.setCombinedMatrix(Debug.matrix, 0, 0, mapCamera.viewportWidth, mapCamera.viewportHeight);
-        World.lights.updateAndRender();
+        // Lights
+        if (!debug) {
+            float vpW = mapCamera.viewportWidth;
+            float vpH = mapCamera.viewportHeight;
+            World.lights.setCombinedMatrix(Debug.matrix, 0, 0, vpW, vpH);
+            World.lights.updateAndRender();
+        }
 
-        // Debug.debugRenderUpdate(mainStage);
+        // Debug render
+        if (debug) Debug.debugRenderUpdate(mainStage);
+
+        mainStage.getCamera().update();
+        updateUi(dt);
+        uiStage.draw();
+
+
+
     }
 
     @Override
-    public void update(float dt) {
-    }
+    public void update(float dt) { }
+
 
     @Override
     public boolean scrolled(int amount) {
+        mouseScroll(amount);
+        return super.scrolled(amount);
+    }
+
+    /*------------------------------------------------------------------*\
+   	|*							Public Methods 				            *|
+   	\*------------------------------------------------------------------*/
+
+    private void mouseScroll(int amount) {
         OrthographicCamera mainCamera = (OrthographicCamera) mainStage.getCamera();
         if (amount == 1) {
             mapCamera.zoom += .2f;
@@ -62,24 +86,26 @@ public class MouseScreen extends BaseScreen {
             mapCamera.zoom -= .2f;
             mainCamera.zoom -= .2f;
         }
-        return super.scrolled(amount);
     }
 
-	/*------------------------------------------------------------------*\
-	|*							Private Methods 				        *|
-	\*------------------------------------------------------------------*/
-
-    private void mouseListner() {
+    public void mouseListner() {
         mainStage.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Player player = Store.getPlayer("A");
+
                 // clear selected array (click on empty spot)
                 if (mainStage.hit(x, y, true) == null && button == Input.Buttons.LEFT) {
-                    Store.selected.clear();
+                    player.getSelection().clear();
+                    // Store.selected.clear();
                 }
                 // move selected movables to right click position
-                if (button == Input.Buttons.RIGHT && !Store.selected.isEmpty()) {
-                    Store.selected.forEach(i -> i.mouseComponent().setDestination(x, y));
+
+                boolean rightClick = button == Input.Buttons.RIGHT;
+                boolean emptySelection = player.getSelection().isEmpty();
+                if (rightClick && !emptySelection) {
+                    player.getSelection().forEach(i -> i.mouseComponent().setDestination(x, y));
+                    // Store.selected.forEach(i -> i.mouseComponent().setDestination(x, y));
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }

@@ -69,7 +69,7 @@ public class TilemapActor extends Actor {
 
     /**
      * Search the map layers for Rectangle Objects that contain a property (key) called "name" with associated value propertyName.
-     * Typically used to store non-actor information such as SpawnPoint locations or dimensions of Solid objects.
+     * Typically used to store non-actor information such as SpawnPoint locations or dimensions of DecorationEntity objects.
      * Retrieve data as object, then cast to desired type: for example, float w = (float)obj.getProperties().get("width").
      */
     public Array<MapObject> getRectangleList(String propertyName) {

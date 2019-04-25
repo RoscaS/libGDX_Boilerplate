@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Extends functionality of the LibGDX Actor class.
  * by adding support for textures/animation,
  * collision polygons, movement, world boundaries, and camera scrolling.
- * Most game objects should extend this class; lists of extensions can be retrieved by stage and class name.
+ * Most main objects should extend this class; lists of extensions can be retrieved by stage and class name.
  */
 public class BaseActor extends Group {
 
@@ -39,7 +39,7 @@ public class BaseActor extends Group {
     // Collision
     private Polygon boundaryPolygon;
 
-    // Stores size of game world for all actors
+    // Stores size of main world for all actors
     private static Rectangle worldBounds;
 
 	/*------------------------------------------------------------------*\
@@ -123,7 +123,7 @@ public class BaseActor extends Group {
      * Retrieves a list of all instances of the object from the given stage
      * with the given class name or whose class extends the class with the given name.
      * If no instances exist, returns an empty list.
-     * Useful when coding interactions between different types of game objects in update method.
+     * Useful when coding interactions between different types of main objects in update method.
      *
      * @param stage     Stage containing BaseActor instances
      * @param className name of a class that extends the BaseActor class
