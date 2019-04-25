@@ -17,7 +17,7 @@ public class Solid extends CoreEntity {
         addTextureComponent();
 
         setStatic();
-        setPhysicsProperties(1, .5f, -1f);
+        setPhysicsProperties(100, 0, 0);
         setShapeRectangle();
         setFixedRotation();
 

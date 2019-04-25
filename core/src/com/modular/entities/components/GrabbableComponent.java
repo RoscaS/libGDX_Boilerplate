@@ -26,6 +26,7 @@ public class GrabbableComponent {
         proximity = null;
         initFixture();
 
+
         World.world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {

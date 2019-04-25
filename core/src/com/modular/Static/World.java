@@ -47,9 +47,9 @@ public abstract class World {
     }
 
 	public static void initLights() {
+        lights = new RayHandler(world);
         RayHandler.setGammaCorrection(true);
         RayHandler.useDiffuseLight(true);
-        lights = new RayHandler(world);
         lights.setBlurNum(3);
     }
 

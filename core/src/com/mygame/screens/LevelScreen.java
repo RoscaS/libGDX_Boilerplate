@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.modular.Static.World;
 import com.modular.entities.base.TilemapEntities;
 import com.modular.screen.MouseScreen;
+import com.mygame.actors.Collector;
 import com.mygame.actors.Soldier;
 import com.mygame.actors.Solid;
 import com.mygame.actors.Torch;
@@ -26,7 +27,14 @@ public class LevelScreen extends MouseScreen {
         World.setTopdownWorld(tme, 1, 1);
 
         new Soldier(100, 300, mainStage);
-        new Torch(100, 150, mainStage);
+        new Collector(900, 250, mainStage);
+
+        new Torch(1100, 150, .4f,mainStage);
+        new Torch(100, 150, .4f,mainStage);
+
+        // Torch fire = new Torch(630, 920, 1,mainStage);
+
+
 
         for (MapObject obj : tme.getRectangleList("Solid")) {
             MapProperties props = obj.getProperties();

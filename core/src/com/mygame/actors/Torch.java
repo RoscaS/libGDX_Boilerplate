@@ -13,16 +13,25 @@ public class Torch extends TopDownEntity {
 	|*							Constructors						    *|
 	\*------------------------------------------------------------------*/
 
-    public Torch(float x, float y, Stage s) {
-        super(x, y, s);
+    public Torch(float x, float y, float scale, Stage stage) {
+        super(x, y, stage);
         owner = null;
 
-        poste = new Poste(x, y, s);
-        fire = new Fire(x, y, s);
+        poste = new Poste(x, y, stage);
+        fire = new Fire(x, y, scale, stage);
 
         fire.particlesComponent().setInfinite();
         fire.particlesComponent().start();
     }
+
+    /*------------------------------*\
+   	|*				Getters		    *|
+   	\*------------------------------*/
+
+    public Fire getFire() {
+        return fire;
+    }
+
     /*------------------------------------------------------------------*\
    	|*							    Parts  						        *|
    	\*------------------------------------------------------------------*/
@@ -83,13 +92,13 @@ public class Torch extends TopDownEntity {
 
     private class Fire extends TopDownEntity {
 
-        public Fire(float x, float y, Stage s) {
+        public Fire(float x, float y, float scale, Stage s) {
             super(x, y, s);
             addParticlesComponent();
             particlesComponent().loadParticles("explosion.pfx");
-            setScale(.4f);
+            setScale(scale);
 
-            addLightComponent(6);
+            addLightComponent(10);
             lightComponent().setDansing();
             lightComponent().getLight().setIgnoreAttachedBody(true);
         }
@@ -100,4 +109,7 @@ public class Torch extends TopDownEntity {
             centerAtActor(poste, 0, 35);
         }
     }
+
+
+
 }

@@ -63,7 +63,8 @@ public class TextureComponent {
    	\*------------------------------------------------------------------*/
 
     private void animationUpdate(float dt) {
-        if (entity.mouseComponent().destination == null) {
+        // if (entity.mouseComponent().destination == null) {
+        if (entity.motionComponent().getVelocity().len() == 0) {
             animationPaused = true;
         } else {
             animationPaused = false;

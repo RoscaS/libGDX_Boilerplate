@@ -45,20 +45,6 @@ public class MouseComponent {
         } else if (entity.motionComponent().isMoving()) {
             entity.motionComponent().decelerate(dt);
         }
-
-
-        // if (destination != null) {
-        //     goToDestination();
-        //     float distance = distanceToDestination();
-        //
-        //     if (distance <= 20) {
-        //         clearDestination();
-        //         entity.motionComponent().decelerate(dt);
-        //     }
-        // }
-        // else if (entity.motionComponent().isMoving()) {
-        //     entity.motionComponent().decelerate(dt);
-        // }
     }
 
     /*------------------------------------------------------------------*\

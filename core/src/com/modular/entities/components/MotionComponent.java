@@ -248,6 +248,7 @@ public class MotionComponent {
     public void act(float dt) {
 
         // Cap max speeds, if it's set.
+        // if (maxSpeedX != null) {
         if (maxSpeedX != null) {
             Vector2 v = getVelocity();
             v.x = MathUtils.clamp(v.x, -maxSpeedX, maxSpeedX);

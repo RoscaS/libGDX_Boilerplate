@@ -29,7 +29,7 @@ public class LightComponent {
 	\*------------------------------------------------------------------*/
 
     public LightComponent(CoreEntity entity, float size) {
-        this.oscillation = .1f;
+        this.oscillation = .9f;
         this.cursor = 0;
         this.direction = 1;
 
@@ -39,7 +39,7 @@ public class LightComponent {
         handler = new Handler();
         light = new PointLight(World.lights, 1000, Color.ORANGE, size, 0, 0);
         light.attachToBody(handler.getBody());
-        light.setSoftnessLength(2.5f);
+        light.setSoftnessLength(4.75f);
 
     }
 
@@ -74,7 +74,7 @@ public class LightComponent {
 
             getFixtureDef().isSensor = true;
             CircleShape circleShape = new CircleShape();
-            circleShape.setRadius(1 / World.SCALE);
+            // circleShape.setRadius(1);
             getFixtureDef().shape = circleShape;
             initializePhysics();
         }

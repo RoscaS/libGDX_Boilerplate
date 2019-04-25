@@ -27,8 +27,8 @@ public class TopDownEntity extends CoreEntity {
 
         if (isDynamic) {
             FrictionJointDef fJoin = new FrictionJointDef();
-            fJoin.maxForce = 2;
-            fJoin.maxTorque = 2;
+            fJoin.maxForce = 20;
+            fJoin.maxTorque = 20;
             fJoin.initialize(World.frictionerBox, getBody(), new Vector2(0, 0));
             World.world.createJoint(fJoin);
 
